@@ -150,11 +150,13 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Static\icons\" />
+    <Folder Include="Static\imagenes\" />
     <Folder Include="Static\js\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Views\Home\Principal.cshtml" />
+    <Content Include="Views\Home\Registro.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
