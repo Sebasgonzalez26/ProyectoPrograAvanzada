@@ -13,18 +13,24 @@ namespace KN_Proyecto_progra_avanzada.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Registro()
         {
-            ViewBag.Message = "Your application description page.";
+           
 
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
 
+
+        public ActionResult Principal()
+        {
             return View();
+
         }
+
+
     }
+
+
+
 }
