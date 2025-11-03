@@ -132,6 +132,17 @@
     <Content Include="Static\css\material-dashboard.css" />
     <Content Include="Static\css\nucleo-icons.css" />
     <Content Include="Static\css\nucleo-svg.css" />
+    <Content Include="Static\icons\apple-icon.png" />
+    <Content Include="Static\icons\favicon.png" />
+    <Content Include="Static\icons\illustration-signup.jpg" />
+    <Content Include="Static\icons\logo-ct-dark.png" />
+    <Content Include="Static\icons\logo-spotify.svg" />
+    <Content Include="Static\icons\team-2.jpg" />
+    <Content Include="Static\js\bootstrap.min.js" />
+    <Content Include="Static\js\material-dashboard.min.js" />
+    <Content Include="Static\js\perfect-scrollbar.min.js" />
+    <Content Include="Static\js\popper.min.js" />
+    <Content Include="Static\js\smooth-scrollbar.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -149,9 +160,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Static\icons\" />
     <Folder Include="Static\imagenes\" />
-    <Folder Include="Static\js\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
