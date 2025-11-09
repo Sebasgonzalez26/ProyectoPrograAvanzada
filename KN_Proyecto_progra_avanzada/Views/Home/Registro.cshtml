@@ -1,15 +1,35 @@
-﻿@{
+﻿@model KN_Proyecto_progra_avanzada.Models.Usuario
+
+@{
     Layout = "~/Views/Shared/_LayoutExterno.cshtml";
 }
 
 <section>
+
+
+    <style>
+        /* separa el mensaje del input */
+        .text-danger.text-sm {
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* marca el input-group cuando hay error */
+        .input-group.is-invalid .form-control {
+            border-color: #dc3545 !important;
+        }
+    </style>
+
     <div class="page-header min-vh-100">
         <div class="container">
             <div class="row">
+
                 <!-- Imagen lateral -->
                 <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
                     <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center"
-                         style="background-image: url('@Url.Content("~/Static/icons/illustration-signup.jpg")'); background-size: cover;">
+                         style="background-image: url('@Url.Content("~/Static/icons/illustration-signup.jpg")');
+                                background-size: cover;
+                                background-position: center;">
                     </div>
                 </div>
 
@@ -17,43 +37,74 @@
                 <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
                     <div class="card card-plain">
                         <div class="card-header">
-                            <h4 class="font-weight-bolder">Sign Up</h4>
-                            <p class="mb-0">Enter your email and password to register</p>
+                            <h4 class="font-weight-bolder">Registro</h4>
+                            <p class="mb-0">Porfavor Ingrese la informacion solicitada</p>
                         </div>
+
                         <div class="card-body">
-                            <form role="form">
-                                <div class="input-group input-group-outline mb-3">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" />
+
+                            @if (ViewBag.Mensaje != null)
+                            {
+                                <div class="alert alert-light" role="alert">
+                                    @ViewBag.Mensaje
                                 </div>
-                                <div class="input-group input-group-outline mb-3">
+                            }
+
+                            @using (Html.BeginForm("Registro", "Home", FormMethod.Post, new { @id = "FormRegistro" }))
+                            {
+                                <!-- Identificación -->
+                                <div class="input-group input-group-outline mb-3 @( !string.IsNullOrEmpty(Model?.Identificacion) ? "is-filled" : "" )">
+                                    <label class="form-label">Identificación</label>
+                                    @Html.TextBoxFor(m => m.Identificacion,
+                                        new { @class = "form-control", id = "Identificacion" })  <!-- 👈 SIN onkeyup -->
+                                </div>
+
+                                <!-- Nombre -->
+                                <div class="input-group input-group-outline mb-3 @( !string.IsNullOrEmpty(Model?.Nombre) ? "is-filled" : "" )">
+                                    <label class="form-label">Nombre</label>
+                                    @Html.TextBoxFor(m => m.Nombre,
+                                        new { @class = "form-control", id = "Nombre", @readonly = "true" })
+                                </div>
+
+                                <!-- Correo -->
+                                <div class="input-group input-group-outline mb-3 @( !string.IsNullOrEmpty(Model?.CorreoElectronico) ? "is-filled" : "" )">
                                     <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" />
+                                    @Html.TextBoxFor(m => m.CorreoElectronico, new { @class = "form-control", type = "email" })
                                 </div>
-                                <div class="input-group input-group-outline mb-3">
+
+                                <!-- Contraseña -->
+                                <div class="input-group input-group-outline mb-3 @( !string.IsNullOrEmpty(Model?.Contrasena) ? "is-filled" : "" )">
                                     <label class="form-label">Password</label>
-                                    <input type="password" class="form-control" />
+                                    @Html.PasswordFor(m => m.Contrasena, new { @class = "form-control" })
                                 </div>
-                                <div class="form-check form-check-info text-start ps-0">
-                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" checked />
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
-                                    </label>
-                                </div>
+
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-lg bg-gradient-dark w-100 mt-4 mb-0">Sign Up</button>
+                                    <button type="submit" class="btn btn-lg bg-gradient-dark w-100 mt-3 mb-0">Guardar</button>
                                 </div>
-                            </form>
+                            }
                         </div>
+
                         <div class="card-footer text-center pt-0 px-lg-2 px-1">
                             <p class="mb-2 text-sm mx-auto">
-                                Already have an account?
-                                <a href="@Url.Action("Index", "Home")" class="text-primary text-gradient font-weight-bold">Sign in</a>
+                                Ya tienes una cuenta?
+                                <a href="@Url.Action("Index", "Home")" class="text-primary text-gradient font-weight-bold">Inicia Sesion</a>
                             </p>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </section>
+
+@section Scripts {
+    <script>
+     
+        const urlConsultarCedula = '@Url.Action("ConsultarCedula", "Home")';
+    </script>
+
+    <!-- Enlazamos el archivo JS externo -->
+    <script src="~/Static/js/registro.js"></script>
+}
+

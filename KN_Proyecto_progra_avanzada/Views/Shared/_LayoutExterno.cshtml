@@ -35,31 +35,25 @@
     <main class="main-content mt-0">
         @RenderBody()
     </main>
+    <!-- jQuery SIEMPRE antes que Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- ========== SCRIPTS NECESARIOS ========== -->
-    <!-- Core JS (estos vienen en el template de Creative Tim) -->
+    <!-- ✅ Plugin de jQuery Validation -->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+    <!-- (Opcional) plugin de mensajes en español -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/localization/messages_es.min.js"></script> -->
+    <!-- Ahora sí Bootstrap y los demás -->
     <script src="~/Static/js/popper.min.js"></script>
     <script src="~/Static/js/bootstrap.min.js"></script>
 
-    <!-- Perfect Scrollbar (esto es lo que te falta) -->
     <script src="~/Static/js/perfect-scrollbar.min.js"></script>
     <script src="~/Static/js/smooth-scrollbar.min.js"></script>
-
-    <!-- Script principal del dashboard -->
     <script src="~/Static/js/material-dashboard.min.js"></script>
-    
 
-    <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('#sidenav-scrollbar')) {
-            var options = { damping: '0.5' };
-            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-        }
-    </script>
+    @RenderSection("Scripts", required: false)
 
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    <!-- Botones de GitHub (opcional) -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
 </body>
 </html>
