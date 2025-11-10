@@ -189,6 +189,7 @@
     <Content Include="Static\js\popper.min.js" />
     <Content Include="Static\js\Registro.js" />
     <Content Include="Static\js\smooth-scrollbar.min.js" />
+    <Content Include="Templates\templateRecuperacion.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

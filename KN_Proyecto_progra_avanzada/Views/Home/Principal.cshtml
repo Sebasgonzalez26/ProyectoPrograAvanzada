@@ -1,5 +1,216 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
 }
 
+<style>
+    /* icono redondo centrado para las tarjetas de arriba */
+    .kpi-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        flex: 0 0 46px;
+    }
+
+    .kpi-card .card-body {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .kpi-text p {
+        line-height: 1.1;
+    }
+</style>
+
+<!-- HERO -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-0 bg-gradient-success" style="background: linear-gradient(135deg,#0f766e 0%, #134e4a 100%);">
+            <div class="card-body d-flex flex-wrap align-items-center justify-content-between">
+                <div>
+                    <h4 class="text-white mb-1">Bienvenido a Mundo Animal Vet 🐶🐱</h4>
+                    <p class="text-white opacity-8 mb-0">
+                        Plataforma para gestionar clientes, mascotas, citas, inventario y tienda.
+                    </p>
+                </div>
+                <div class="d-flex gap-3 align-items-center mt-3 mt-md-0">
+                    <img src="https://images.unsplash.com/photo-1601758124097-1dfd6b55f4c5?w=140&auto=format&fit=crop&q=60"
+                         alt="Veterinaria" class="rounded-3 d-none d-md-block" style="height:72px;object-fit:cover;">
+                    <a href="#" class="btn btn-light text-dark btn-sm">Registrar cita</a>
+                    <a href="#" class="btn btn-outline-light btn-sm">Agregar mascota</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MÉTRICAS RÁPIDAS -->
+<div class="row">
+    <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card h-100 kpi-card">
+            <div class="card-body">
+                <div class="kpi-icon" style="background:#22c55e;">
+                    <span class="material-symbols-rounded">calendar_month</span>
+                </div>
+                <div class="kpi-text">
+                    <p class="text-sm text-secondary mb-0">Citas de hoy</p>
+                    <h5 class="mb-0">8</h5>
+                    <span class="text-xs text-success">+2 vs ayer</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card h-100 kpi-card">
+            <div class="card-body">
+                <div class="kpi-icon" style="background:#1d4ed8;">
+                    <span class="material-symbols-rounded">pets</span>
+                </div>
+                <div class="kpi-text">
+                    <p class="text-sm text-secondary mb-0">Mascotas activas</p>
+                    <h5 class="mb-0">124</h5>
+                    <span class="text-xs text-secondary">registradas en el sistema</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card h-100 kpi-card">
+            <div class="card-body">
+                <div class="kpi-icon" style="background:#f97316;">
+                    <span class="material-symbols-rounded">notifications_active</span>
+                </div>
+                <div class="kpi-text">
+                    <p class="text-sm text-secondary mb-0">Recordatorios</p>
+                    <h5 class="mb-0">5 pendientes</h5>
+                    <span class="text-xs text-secondary">vacunas y controles</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card h-100 kpi-card">
+            <div class="card-body">
+                <div class="kpi-icon" style="background:#ef4444;">
+                    <span class="material-symbols-rounded">inventory_2</span>
+                </div>
+                <div class="kpi-text">
+                    <p class="text-sm text-secondary mb-0">Inventario bajo</p>
+                    <h5 class="mb-0">3 productos</h5>
+                    <span class="text-xs text-danger">revisar bodega</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- lo demás de la página que ya te había mandado (citas, alertas, tienda, banner) -->
+<!-- CONTENIDO PRINCIPAL: CITAS + ALERTAS + TIENDA -->
+<div class="row">
+    <!-- Próximas citas -->
+    <div class="col-lg-7 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="mb-0">Próximas citas</h6>
+                <a href="#" class="text-sm text-primary">Ver calendario</a>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">10:00 am - Control general</h6>
+                            <p class="text-xs text-secondary mb-0">Mascota: Luna (canino) · Cliente: Carlos Rojas</p>
+                        </div>
+                        <span class="badge bg-success">Confirmada</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">11:30 am - Vacuna</h6>
+                            <p class="text-xs text-secondary mb-0">Mascota: Nala (felino) · Cliente: Marianella</p>
+                        </div>
+                        <span class="badge bg-warning text-dark">Pendiente</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">2:00 pm - Emergencia leve</h6>
+                            <p class="text-xs text-secondary mb-0">Mascota: Max (canino) · Cliente: Stephano</p>
+                        </div>
+                        <span class="badge bg-danger">Urgente</span>
+                    </li>
+                    <li class="list-group-item text-center">
+                        <a href="#" class="text-sm text-primary">Ver todas las citas del día</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alertas / Inventario / Recordatorios -->
+    <div class="col-lg-5 mb-4">
+        <div class="card mb-4">
+            <div class="card-header pb-0">
+                <h6>Alertas del sistema</h6>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning d-flex align-items-center" role="alert">
+                    <span class="material-symbols-rounded me-2">inventory_2</span>
+                    Vacuna antirrábica - stock bajo. Revisar inventario.
+                </div>
+                <div class="alert alert-info d-flex align-items-center" role="alert">
+                    <span class="material-symbols-rounded me-2">pets</span>
+                    2 mascotas requieren control post-operatorio hoy.
+                </div>
+                <div class="alert alert-success d-flex align-items-center" role="alert">
+                    <span class="material-symbols-rounded me-2">shopping_bag</span>
+                    Nueva orden creada en la tienda en línea.
+                </div>
+            </div>
+        </div>
+
+        <!-- Módulo pequeño de tienda -->
+        <div class="card">
+            <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                <h6>Tienda en línea</h6>
+                <a href="#" class="text-sm text-primary">Ver más</a>
+            </div>
+            <div class="card-body d-flex gap-3">
+                <div class="flex-shrink-0">
+                    <img src="https://images.unsplash.com/photo-1587009937627-5f236dc2703b?w=100&auto=format&fit=crop&q=60"
+                         class="rounded" style="width:80px;height:80px;object-fit:cover;" alt="Producto veterinaria" />
+                </div>
+                <div>
+                    <h6 class="mb-1">Collar antipulgas</h6>
+                    <p class="text-xs text-secondary mb-1">Protección por 8 meses</p>
+                    <span class="badge bg-success mb-2">₡ 9 500</span><br />
+                    <a href="#" class="btn btn-sm btn-primary">Agregar al carrito</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BANNER DE RECORDATORIOS -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card bg-gray-100 border-0">
+            <div class="card-body d-flex flex-wrap align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="material-symbols-rounded text-warning" style="font-size:48px;">
+                        campaign
+                    </span>
+                    <div>
+                        <h6 class="mb-0">Recordatorios automáticos activados</h6>
+                        <p class="text-sm text-secondary mb-0">
+                            El sistema enviará correos de cita, vacunas y pedidos de tienda a los clientes registrados.
+                        </p>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-outline-dark btn-sm mt-3 mt-md-0">Configurar notificaciones</a>
+            </div>
+        </div>
+    </div>
+</div>
