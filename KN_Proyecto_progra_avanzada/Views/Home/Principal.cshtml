@@ -175,21 +175,48 @@
         <div class="card">
             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                 <h6>Tienda en línea</h6>
-                <a href="#" class="text-sm text-primary">Ver más</a>
+                <a href="@Url.Action("VerCatalogo", "Catalogo")" class="text-sm text-primary">Ver más</a>
             </div>
-            <div class="card-body d-flex gap-3">
-                <div class="flex-shrink-0">
-                    <img src="https://images.unsplash.com/photo-1587009937627-5f236dc2703b?w=100&auto=format&fit=crop&q=60"
-                         class="rounded" style="width:80px;height:80px;object-fit:cover;" alt="Producto veterinaria" />
-                </div>
-                <div>
-                    <h6 class="mb-1">Collar antipulgas</h6>
-                    <p class="text-xs text-secondary mb-1">Protección por 8 meses</p>
-                    <span class="badge bg-success mb-2">₡ 9 500</span><br />
-                    <a href="#" class="btn btn-sm btn-primary">Agregar al carrito</a>
-                </div>
+            <div class="card-body">
+                @if (ViewBag.ProductosTienda != null && ((IEnumerable<KN_Proyecto_progra_avanzada.EF.tbCatalogo>)ViewBag.ProductosTienda).Any())
+                {
+                    foreach (var prod in (IEnumerable<KN_Proyecto_progra_avanzada.EF.tbCatalogo>)ViewBag.ProductosTienda)
+                    {
+                        <div class="d-flex gap-3 mb-3 align-items-center">
+                            <div class="flex-shrink-0">
+                                @if (!string.IsNullOrEmpty(prod.Imagen))
+                                {
+                                    <img src="@prod.Imagen"
+                                         class="rounded"
+                                         style="width:80px;height:80px;object-fit:cover;"
+                                         alt="@prod.Nombre" />
+                                }
+                                else
+                                {
+                                    <div class="bg-gray-200 rounded d-flex justify-content-center align-items-center"
+                                         style="width:80px;height:80px;">
+                                        <i class="material-symbols-rounded">shopping_bag</i>
+                                    </div>
+                                }
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">@prod.Nombre</h6>
+                                <p class="text-xs text-secondary mb-1">
+                                    @(!string.IsNullOrEmpty(prod.Descripcion) ? prod.Descripcion : "Producto veterinaria")
+                                </p>
+                                <span class="badge bg-success mb-2">₡ @prod.Precio</span><br />
+                                <a href="#" class="btn btn-sm btn-primary">Agregar al carrito</a>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-sm text-secondary mb-0">No hay productos cargados en el catálogo.</p>
+                }
             </div>
         </div>
+
     </div>
 </div>
 

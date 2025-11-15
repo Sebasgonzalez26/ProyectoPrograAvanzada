@@ -1,5 +1,6 @@
 ﻿using KN_Proyecto_progra_avanzada.EF;
 using KN_Proyecto_progra_avanzada.Models;
+using KN_Proyecto_progra_avanzada.Services;
 using System;
 using System.Configuration;
 using System.Linq;
@@ -9,9 +10,13 @@ using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace KN_Proyecto_progra_avanzada.Controllers
 {
+
+
+    [OutputCache(Duration = 0, Location = OutputCacheLocation.None, NoStore = true, VaryByParam ="*")]
     public class HomeController : Controller
     {
         // ----------------- LOGIN -----------------
@@ -31,7 +36,12 @@ namespace KN_Proyecto_progra_avanzada.Controllers
 
                 if (resultado != null)
                 {
+
                     // Redirige al home principal
+
+                    Session["IdUsuario"] = resultado.IdUsuario;
+
+                    Session["NombreUsuario"] = resultado.Nombre;
                     return RedirectToAction("Principal", "Home");
                 }
                 else
@@ -137,17 +147,42 @@ namespace KN_Proyecto_progra_avanzada.Controllers
         }
 
         // ----------------- PRINCIPAL -----------------
+
+
+        [Seguridad]
         [HttpGet]
         public ActionResult Principal()
         {
+            using (var context = new BDProyecto_KNEntities())
+            {
+                var productosTienda = context.tbCatalogo
+                    .Where(p => p.Estado == true || p.Estado == null)
+                    .OrderByDescending(p => p.FechaRegistro)
+                    .Take(3)
+                    .ToList();
+
+                ViewBag.ProductosTienda = productosTienda;
+            }
+
             return View();
         }
+
+        [Seguridad]
+        [HttpGet]
+        public ActionResult CerrarSesion()
+        {
+            Session.Clear();
+            return RedirectToAction("Index","Home");
+
+        }
+
+
 
         // =====================================================================
         // MÉTODOS PRIVADOS
         // =====================================================================
 
-        // Generar contraseña aleatoria
+      
         private string GenerarContrasenna()
         {
             int longitud = 8;
@@ -210,6 +245,8 @@ namespace KN_Proyecto_progra_avanzada.Controllers
             return System.IO.File.ReadAllText(ruta);
         }
 
+
+        
 
 
        

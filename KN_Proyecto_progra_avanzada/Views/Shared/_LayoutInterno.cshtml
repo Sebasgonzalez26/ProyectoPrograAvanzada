@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+    var nombreUsuario = (Session["NombreUsuario"] == null ? "Invitado" : Session["NombreUsuario"].ToString());
+}
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -231,7 +238,6 @@
             align-items: center;
             justify-content: center;
         }
-
     </style>
 
 
@@ -322,19 +328,14 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">
+                    <a class="nav-link text-dark" href="@Url.Action("VerCatalogo","Catalogo")">
                         <i class="material-symbols-rounded opacity-5">shopping_bag</i>
                         <span class="nav-link-text ms-1">Catálogo</span>
                     </a>
                 </li>
 
 
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">
-                        <i class="material-symbols-rounded opacity-5">shopping_bag</i>
-                        <span class="nav-link-text ms-1">Agregar Productos</span>
-                    </a>
-                </li>
+
             </ul>
         </div>
     </aside>
@@ -344,7 +345,8 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
 
         <!-- NAVBAR SUPERIOR -->
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
+        <nav class="navbar navbar-main navbar-expand
+             lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
              data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
@@ -354,18 +356,22 @@
 
                 <!-- Ícono de usuario alineado a la derecha -->
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link text-body px-0 account-link" href="#" id="navbarProfile"
+                    <li class="nav-item dropdown d-flex align-items-center">
+                        <a class="nav-link text-body px-0 account-link d-flex align-items-center"
+                           href="#" id="navbarProfile"
                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="material-symbols-rounded account-icon">account_circle</i>
+                            <i class="material-symbols-rounded account-icon me-2">account_circle</i>
+                            <span class="username text-secondary fw-semibold">@nombreUsuario</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarProfile">
-                            <li><a class="dropdown-item" href="#">Opción 1</a></li>
-                            <li><a class="dropdown-item" href="#">Opción 2</a></li>
-                            <li><a class="dropdown-item" href="#">Opción 3</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("VerPerfil","Usuario")">Perfil</a></li>
+                            <li><a class="dropdown-item" href="#">Seguridad</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href=" @Url.Action("CerrarSesion","Home")">Cerrar sesión</a></li>
                         </ul>
                     </li>
                 </ul>
+
 
             </div>
         </nav>
@@ -395,8 +401,8 @@
             </footer>
         </div>
     </main>
-
     <!-- SCRIPTS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
     <script src="~/Static/js/popper.min.js"></script>
     <script src="~/Static/js/bootstrap.min.js"></script>
     <script src="~/Static/js/perfect-scrollbar.min.js"></script>
@@ -408,6 +414,8 @@
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
-</body>
 
+    @RenderSection("Scripts", required: false)  @* asegúrate de que ESTO exista *@
+</body>
 </html>
+

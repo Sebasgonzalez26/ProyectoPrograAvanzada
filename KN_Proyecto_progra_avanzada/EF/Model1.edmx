@@ -4,7 +4,30 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BDProyecto_KNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BDProyecto_KNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbCatalogo">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="2000" Nullable="false" />
+          <Property Name="Precio" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Stock" Type="int" Nullable="false" />
+          <Property Name="Imagen" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+          <Property Name="IdCategoria" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbCategoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="tbPerfil">
           <Key>
             <PropertyRef Name="IdPerfil" />
@@ -24,6 +47,18 @@
           <Property Name="Estado" Type="bit" Nullable="false" />
           <Property Name="IdPerfil" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_tbCatalogo_tbCategoria">
+          <End Role="tbCategoria" Type="Self.tbCategoria" Multiplicity="1" />
+          <End Role="tbCatalogo" Type="Self.tbCatalogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCategoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="tbCatalogo">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbUsuario_tbPerfil">
           <End Role="tbPerfil" Type="Self.tbPerfil" Multiplicity="1" />
           <End Role="tbUsuario" Type="Self.tbUsuario" Multiplicity="*" />
@@ -47,15 +82,20 @@
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="BDProyecto_KNModelStoreContainer">
+          <EntitySet Name="tbCatalogo" EntityType="Self.tbCatalogo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbCategoria" EntityType="Self.tbCategoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbPerfil" EntityType="Self.tbPerfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbUsuario" EntityType="Self.tbUsuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbCatalogo_tbCategoria" Association="Self.FK_tbCatalogo_tbCategoria">
+            <End Role="tbCategoria" EntitySet="tbCategoria" />
+            <End Role="tbCatalogo" EntitySet="tbCatalogo" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbUsuario_tbPerfil" Association="Self.FK_tbUsuario_tbPerfil">
             <End Role="tbPerfil" EntitySet="tbPerfil" />
             <End Role="tbUsuario" EntitySet="tbUsuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BDProyecto_KNModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -109,6 +149,12 @@
             <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
             <Parameter Name="Contrasenna" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="tbCatalogo" EntityType="BDProyecto_KNModel.tbCatalogo" />
+          <EntitySet Name="tbCategoria" EntityType="BDProyecto_KNModel.tbCategoria" />
+          <AssociationSet Name="FK_tbCatalogo_tbCategoria" Association="BDProyecto_KNModel.FK_tbCatalogo_tbCategoria">
+            <End Role="tbCategoria" EntitySet="tbCategoria" />
+            <End Role="tbCatalogo" EntitySet="tbCatalogo" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="ValidarUsuarios_Result">
           <Property Type="Int32" Name="IdUsuario" Nullable="false" />
@@ -119,6 +165,43 @@
           <Property Type="Boolean" Name="Estado" Nullable="false" />
           <Property Type="Int32" Name="IdPerfil" Nullable="false" />
         </ComplexType>
+        <EntityType Name="tbCatalogo">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Stock" Type="Int32" Nullable="false" />
+          <Property Name="Imagen" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbCategoria" Relationship="BDProyecto_KNModel.FK_tbCatalogo_tbCategoria" FromRole="tbCatalogo" ToRole="tbCategoria" />
+        </EntityType>
+        <EntityType Name="tbCategoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbCatalogo" Relationship="BDProyecto_KNModel.FK_tbCatalogo_tbCategoria" FromRole="tbCategoria" ToRole="tbCatalogo" />
+        </EntityType>
+        <Association Name="FK_tbCatalogo_tbCategoria">
+          <End Type="BDProyecto_KNModel.tbCategoria" Role="tbCategoria" Multiplicity="1" />
+          <End Type="BDProyecto_KNModel.tbCatalogo" Role="tbCatalogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCategoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="tbCatalogo">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -160,6 +243,31 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tbCatalogo">
+            <EntityTypeMapping TypeName="BDProyecto_KNModel.tbCatalogo">
+              <MappingFragment StoreEntitySet="tbCatalogo">
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbCategoria">
+            <EntityTypeMapping TypeName="BDProyecto_KNModel.tbCategoria">
+              <MappingFragment StoreEntitySet="tbCategoria">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

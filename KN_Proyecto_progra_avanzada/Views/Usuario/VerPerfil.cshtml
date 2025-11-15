@@ -1,0 +1,70 @@
+﻿@model KN_Proyecto_progra_avanzada.Models.Usuario
+
+@{
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header pb-0 bg-transparent">
+                    <h4 class="font-weight-bolder mb-1">Mi perfil</h4>
+                    <p class="text-sm text-muted mb-2">
+                        Revisa y actualiza tu información básica.
+                    </p>
+
+                    @* Rol / perfil del usuario *@
+                    @if (!string.IsNullOrEmpty(Model?.NombrePerfil))
+                    {
+                        <span class="badge bg-gradient-primary text-xs">
+                            @Model.NombrePerfil
+                        </span>
+                    }
+                </div>
+
+                <div class="card-body pt-3">
+                    @using (Html.BeginForm("ActualizarPerfil", "Usuario", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(x => x.IdUsuario)
+
+                        <!-- Identificación -->
+                        <div class="input-group input-group-outline mb-3 @( !string.IsNullOrEmpty(Model?.Identificacion) ? "is-filled" : "" )">
+                            <label class="form-label">Identificación</label>
+                            @Html.TextBoxFor(x => x.Identificacion,
+                                new { @class = "form-control", id = "Identificacion" })
+                        </div>
+
+                        <!-- Nombre (solo lectura, se actualiza desde la API) -->
+                        <div class="input-group input-group-outline mb-3 @( !string.IsNullOrEmpty(Model?.Nombre) ? "is-filled" : "" )">
+                            <label class="form-label">Nombre completo</label>
+                            @Html.TextBoxFor(x => x.Nombre,
+                                new { @class = "form-control", id = "Nombre", @readonly = "true" })
+                        </div>
+
+                        <!-- Correo Electrónico -->
+                        <div class="input-group input-group-outline mb-4 @( !string.IsNullOrEmpty(Model?.CorreoElectronico) ? "is-filled" : "" )">
+                            <label class="form-label">Correo electrónico</label>
+                            @Html.TextBoxFor(x => x.CorreoElectronico,
+                                new { @class = "form-control", type = "email" })
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn bg-gradient-primary w-100 mb-0">
+                                Actualizar perfil
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // URL para consulta de cédula (API Gometa)
+        var urlConsultarCedulaPerfil = '@ViewBag.UrlConsultarCedula';
+    </script>
+    <script src="~/Static/js/VerPerfil.js"></script>
+}
