@@ -251,7 +251,7 @@
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 bg-white my-2"
            id="sidenav-main">
         <div class="sidenav-header">
-            <a class="navbar-brand px-4 py-3 m-0" href="@Url.Action("Principal","Home")">
+            <a class="navbar-brand px-4 py-3 m-0" href="@Url.Action("Principal", "Home")">
                 <span class="text-gradient" style="font-weight:700;
                     background:linear-gradient(90deg,#0f766e,#2dd4bf);
                     -webkit-background-clip:text;-webkit-text-fill-color:transparent;">
@@ -328,7 +328,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="@Url.Action("VerCatalogo","Catalogo")">
+                    <a class="nav-link text-dark" href="@Url.Action("VerCatalogo", "Catalogo")">
                         <i class="material-symbols-rounded opacity-5">shopping_bag</i>
                         <span class="nav-link-text ms-1">Catálogo</span>
                     </a>
@@ -364,8 +364,8 @@
                             <span class="username text-secondary fw-semibold">@nombreUsuario</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarProfile">
-                            <li><a class="dropdown-item" href="@Url.Action("VerPerfil","Usuario")">Perfil</a></li>
-                            <li><a class="dropdown-item" href="#">Seguridad</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("VerPerfil", "Usuario")">Perfil</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("CambiarAcceso", "Usuario")">Seguridad</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item text-danger" href=" @Url.Action("CerrarSesion","Home")">Cerrar sesión</a></li>
                         </ul>
