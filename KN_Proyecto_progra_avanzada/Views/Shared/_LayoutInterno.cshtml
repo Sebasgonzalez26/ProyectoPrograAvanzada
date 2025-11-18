@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     var nombreUsuario = (Session["NombreUsuario"] == null ? "Invitado" : Session["NombreUsuario"].ToString());
 }
 
@@ -26,222 +25,79 @@
 
 
     <style>
-        /* === ÍCONO DEL USUARIO (NAVBAR DERECHA) === */
-        .account-icon {
-            font-size: 28px; /* tamaño moderado */
-            line-height: 1;
-            vertical-align: middle;
-        }
-
-        .account-link {
-            padding-right: 1.2rem; /* margen derecho */
-        }
-
-        /* === NAVBAR: TEXTO E ÍCONOS === */
-        .navbar .nav-link {
-            font-size: 16px;
-            font-weight: 500;
-            color: #1f2937; /* gris oscuro moderno */
-        }
-
-        .navbar .material-symbols-rounded {
-            font-size: 24px; /* íconos balanceados */
-            vertical-align: middle;
-        }
-
-        /* Hover con transición */
-        .navbar .nav-link:hover {
-            color: #0f766e;
-            transition: color 0.2s ease-in-out;
-        }
-
-        /* Centrar verticalmente todos los ítems del navbar */
-        .navbar-nav .nav-item {
-            display: flex;
-            align-items: center;
-        }
-
-        /* === FOOTER PEGADO AL FINAL === */
-        .main-wrapper {
-            min-height: calc(100vh - 90px); /* empuja más el footer, ajusta si lo querés más abajo */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .content-body {
-            flex-grow: 1;
-        }
-
-        /* === OPCIONAL: separa un poco el footer visualmente === */
-        footer.footer {
-            margin-top: 40px; /* agrega un espacio superior al footer */
-        }
-
-        .navbar .nav-link.account-link {
-            display: flex;
-            align-items: center;
-        }
-
-        /* dropdown un poquito más compacto */
-        .dropdown-menu {
-            min-width: 180px;
-            border-radius: .75rem;
-        }
-
-
-
 
         /* === ÍCONO DEL USUARIO (NAVBAR DERECHA) === */
         .account-icon {
-            font-size: 36px; /* más grande que el resto */
+            font-size: 40px !important;
             line-height: 1;
-            vertical-align: middle;
-        }
-
-        .account-link {
-            padding-right: 1.5rem; /* espacio del borde derecho */
-            display: flex;
-            align-items: center;
-        }
-
-        /* === NAVBAR: TEXTO E ÍCONOS === */
-        .navbar .nav-link {
-            font-size: 16px;
-            font-weight: 500;
-            color: #1f2937; /* gris oscuro moderno */
-        }
-
-        /* íconos normales del navbar (balanceados con texto) */
-        .navbar .material-symbols-rounded {
-            font-size: 24px;
-            vertical-align: middle;
-        }
-
-        /* hover suave en navbar */
-        .navbar .nav-link:hover {
-            color: #0f766e;
-            transition: color 0.2s ease-in-out;
-        }
-
-        /* Centrar todos los ítems del navbar */
-        .navbar-nav .nav-item {
-            display: flex;
-            align-items: center;
-        }
-
-        /* === FOOTER PEGADO AL FINAL === */
-        .main-wrapper {
-            min-height: calc(100vh - 90px); /* empuja el footer hacia abajo */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .content-body {
-            flex-grow: 1;
-        }
-
-        /* Espaciado superior visual del footer */
-        footer.footer {
-            margin-top: 40px;
-        }
-
-        /* === DROPDOWN DEL PERFIL === */
-        .dropdown-menu {
-            min-width: 180px;
-            border-radius: .75rem;
-            font-size: 15px;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-        }
-
-            .dropdown-menu a.dropdown-item:hover {
-                background-color: #f1f5f9;
-            }
-
-        <style >
-        /* === ÍCONO DEL USUARIO (NAVBAR DERECHA) === */
-        .account-icon {
-            font-size: 36px; /* más grande que el resto */
-            line-height: 1;
-            vertical-align: middle;
-        }
-
-        .account-link {
-            padding-right: 1.5rem; /* espacio del borde derecho */
-            display: flex;
-            align-items: center;
-        }
-
-        /* === NAVBAR: TEXTO E ÍCONOS === */
-        .navbar .nav-link {
-            font-size: 16px;
-            font-weight: 500;
-            color: #1f2937; /* gris oscuro moderno */
-        }
-
-        /* íconos normales del navbar (balanceados con texto) */
-        .navbar .material-symbols-rounded {
-            font-size: 24px;
-            vertical-align: middle;
-        }
-
-        /* hover suave en navbar */
-        .navbar .nav-link:hover {
-            color: #0f766e;
-            transition: color 0.2s ease-in-out;
-        }
-
-        /* Centrar todos los ítems del navbar */
-        .navbar-nav .nav-item {
-            display: flex;
-            align-items: center;
-        }
-
-        /* === FOOTER PEGADO AL FINAL === */
-        .main-wrapper {
-            min-height: calc(100vh - 90px); /* empuja el footer hacia abajo */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .content-body {
-            flex-grow: 1;
-        }
-
-        /* Espaciado superior visual del footer */
-        footer.footer {
-            margin-top: 40px;
-        }
-
-        /* === DROPDOWN DEL PERFIL === */
-        .dropdown-menu {
-            min-width: 180px;
-            border-radius: .75rem;
-            font-size: 15px;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-        }
-
-            .dropdown-menu a.dropdown-item:hover {
-                background-color: #f1f5f9;
-            }
-
-
-        /* Forzar tamaño del icono del perfil */
-        .account-icon {
-            font-size: 40px !important; /* fuerza el tamaño de fuente */
-            line-height: 1;
-            width: 40px; /* asegura el espacio físico */
+            width: 40px;
             height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
+
+        .account-link {
+            padding-right: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        /* === NAVBAR === */
+        .navbar .nav-link {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+            .navbar .nav-link:hover {
+                color: #0f766e;
+                transition: color 0.2s ease-in-out;
+            }
+
+        .navbar .material-symbols-rounded {
+            font-size: 24px;
+            vertical-align: middle;
+        }
+
+        .navbar-nav .nav-item {
+            display: flex;
+            align-items: center;
+        }
+
+        /* === FOOTER PEGADO AL FINAL === */
+        .main-wrapper {
+            min-height: calc(100vh - 90px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-body {
+            flex-grow: 1;
+        }
+
+        footer.footer {
+            margin-top: 40px;
+        }
+
+        /* === DROPDOWN PERFIL === */
+        .dropdown-menu {
+            min-width: 180px;
+            border-radius: .75rem;
+            font-size: 15px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+        }
+
+            .dropdown-menu a.dropdown-item:hover {
+                background-color: #f1f5f9;
+            }
     </style>
 
 
 
+
+
+    @RenderSection("estilos", required: false)
 
 </head>
 
@@ -355,67 +211,84 @@
                 </nav>
 
                 <!-- Ícono de usuario alineado a la derecha -->
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item dropdown d-flex align-items-center">
-                        <a class="nav-link text-body px-0 account-link d-flex align-items-center"
-                           href="#" id="navbarProfile"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="material-symbols-rounded account-icon me-2">account_circle</i>
-                            <span class="username text-secondary fw-semibold">@nombreUsuario</span>
+                <ul class="navbar-nav ms-auto d-flex align-items-center">
+
+                    <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                        <a href="javascript:;"
+                           class="nav-link account-link dropdown-toggle"
+                           id="navbarDropdownMenuLink"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span class="material-symbols-rounded account-icon">
+                                    account_circle
+                                </span>
+
+                                <span class="fw-bold" style="font-size:16px;">
+                                    @nombreUsuario
+                                </span>
+                            </div>
+
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarProfile">
-                            <li><a class="dropdown-item" href="@Url.Action("VerPerfil", "Usuario")">Perfil</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("CambiarAcceso", "Usuario")">Seguridad</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href=" @Url.Action("CerrarSesion","Home")">Cerrar sesión</a></li>
+
+                        <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="navbarDropdownMenuLink">
+                            <li>
+                                <span class="dropdown-item-text fw-bold">
+                                    @nombreUsuario
+                                </span>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("Perfil","Home")">
+                                    <i class="material-symbols-rounded me-2">person</i> Perfil
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("CerrarSesion","Login")">
+                                    <i class="material-symbols-rounded me-2">logout</i> Cerrar sesión
+                                </a>
+                            </li>
                         </ul>
                     </li>
+
                 </ul>
 
 
             </div>
         </nav>
-        <!-- FIN NAVBAR -->
-        <!-- CONTENIDO Y FOOTER -->
-        <div class="container-fluid py-2 main-wrapper">
-            <div class="content-body">
-                @RenderBody()
-            </div>
 
-            <footer class="footer py-4">
-                <div class="container-fluid">
-                    <div class="row align-items-center justify-content-lg-between">
-                        <div class="col-lg-6 mb-lg-0 mb-4">
-                            <div class="copyright text-center text-sm text-muted text-lg-start">
-                                ©
-                                <script>document.write(new Date().getFullYear())</script>,
-                                hecho con <i class="fa fa-heart"></i> por
-                                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">
-                                    Creative Tim
-                                </a>
-                                para un mejor sitio web.
-                            </div>
-                        </div>
+        <!-- CUERPO DEL CONTENIDO -->
+        <div class="content-body px-3 py-4">
+            @RenderBody()
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer py-3 mt-auto">
+        <div class="container-fluid">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-6 mb-lg-0 mb-4">
+                    <div class="text-muted text-center text-sm text-lg-start">
+                        ©
+                        <script>document.write(new Date().getFullYear())</script>,
+                        Proyecto Programación Avanzada – Mundo Animal Vet
                     </div>
                 </div>
-            </footer>
+            </div>
         </div>
-    </main>
-    <!-- SCRIPTS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
-    <script src="~/Static/js/popper.min.js"></script>
-    <script src="~/Static/js/bootstrap.min.js"></script>
-    <script src="~/Static/js/perfect-scrollbar.min.js"></script>
-    <script src="~/Static/js/smooth-scrollbar.min.js"></script>
-    <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('#sidenav-scrollbar')) {
-            var options = { damping: '0.5' }
-            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-        }
-    </script>
+    </footer>
 
-    @RenderSection("Scripts", required: false)  @* asegúrate de que ESTO exista *@
+    </div>
+
+    <!--   Core JS Files   -->
+    <script src="~/Static/js/core/popper.min.js"></script>
+    <script src="~/Static/js/core/bootstrap.min.js"></script>
+    <script src="~/Static/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="~/Static/js/plugins/smooth-scrollbar.min.js"></script>
+
+    @RenderSection("scripts", required: false)
+
 </body>
 </html>
-

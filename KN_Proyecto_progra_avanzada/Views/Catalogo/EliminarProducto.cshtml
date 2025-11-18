@@ -1,0 +1,24 @@
+﻿@model KN_Proyecto_progra_avanzada.EF.tbCatalogo
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center mb-4 fw-bold text-danger">Eliminar Producto</h2>
+
+        <h4>¿Está seguro que desea eliminar el producto <strong>@Model.Nombre</strong>?</h4>
+
+        @using (Html.BeginForm("EliminarProductoConfirmed", "Catalogo", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.IdProducto)
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-danger px-4 py-2 fw-bold shadow">
+                    ✖ Eliminar
+                </button>
+                <a href="@Url.Action("VerCatalogo", "Catalogo")" class="btn btn-secondary px-4 py-2 fw-bold shadow ms-2">
+                    Cancelar
+                </a>
+            </div>
+        }
+    </div>
+</div>
