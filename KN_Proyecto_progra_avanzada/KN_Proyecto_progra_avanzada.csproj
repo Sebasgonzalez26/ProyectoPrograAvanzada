@@ -237,6 +237,7 @@
     <Content Include="Views\Usuario\CambiarAcceso.cshtml" />
     <Content Include="Views\Catalogo\AgregarProducto.cshtml" />
     <Content Include="Views\Catalogo\EditarProducto.cshtml" />
+    <Content Include="Views\Catalogo\EliminarProducto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

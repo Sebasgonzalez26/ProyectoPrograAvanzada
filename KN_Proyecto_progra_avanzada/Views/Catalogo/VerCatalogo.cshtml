@@ -58,8 +58,6 @@
                                     <td class="text-muted">@item.Descripcion</td>
                                     <td><span class="badge bg-gradient-success">₡@item.Precio</span></td>
                                     <td>@item.Stock</td>
-
-                                    <!-- MOSTRAR CATEGORÍA SIN ERROR AUNQUE EL CONTEXTO YA SE HAYA CERRADO -->
                                     <td>
                                         @(item.tbCategoria != null
                                             ? item.tbCategoria.Nombre
@@ -83,11 +81,10 @@
                                             <i class="material-symbols-rounded align-middle">edit</i>
                                         </a>
 
-                                        <a href="@Url.Action("EliminarProducto", "Catalogo", new { id = item.IdProducto })"
-                                           class="btn btn-sm btn-danger shadow-sm"
-                                           onclick="return confirm('¿Seguro que deseas eliminar este producto?');">
+                                        <button type="button" class="btn btn-sm btn-danger shadow-sm"
+                                                onclick="confirmarEliminar(@item.IdProducto, '@item.Nombre')">
                                             <i class="material-symbols-rounded align-middle">delete</i>
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
                             }
@@ -108,3 +105,27 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmarEliminar(idProducto, nombre) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Se eliminará el producto: " + nombre,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirige al controller para eliminar
+                    window.location.href = '@Url.Action("EliminarProductoConfirmed", "Catalogo")/' + idProducto;
+                }
+            });
+        }
+    </script>
+}
+

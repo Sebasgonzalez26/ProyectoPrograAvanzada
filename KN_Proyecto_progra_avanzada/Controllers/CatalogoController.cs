@@ -160,5 +160,41 @@ namespace KN_Proyecto_progra_avanzada.Controllers
 
             return RedirectToAction("VerCatalogo");
         }
+
+        // ---------------------------------------------------------
+        // GET: ELIMINAR PRODUCTO
+        // ---------------------------------------------------------
+        [HttpGet]
+        public ActionResult EliminarProducto(int id)
+        {
+            using (var context = new BDProyecto_KNEntities())
+            {
+                var producto = context.tbCatalogo
+                                      .FirstOrDefault(x => x.IdProducto == id);
+
+                if (producto == null)
+                    return HttpNotFound();
+
+                return View(producto);
+            }
+        }
+
+
+        // ---------------------------------------------------------
+        // POST: ELIMINAR PRODUCTO (CONFIRMADO)
+        // ---------------------------------------------------------
+        [HttpGet] // Lo dejamos GET para redirección directa desde SweetAlert
+        public ActionResult EliminarProductoConfirmed(int id)
+        {
+            using (var context = new BDProyecto_KNEntities())
+            {
+                context.Database.ExecuteSqlCommand(
+                    "EXEC EliminarCatalogo @p0",
+                    id
+                );
+            }
+
+            return RedirectToAction("VerCatalogo");
+        }
     }
 }
