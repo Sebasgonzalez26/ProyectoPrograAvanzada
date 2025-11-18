@@ -1,0 +1,90 @@
+﻿@model KN_Proyecto_progra_avanzada.EF.tbCatalogo
+@{
+    ViewBag.Title = "Editar Producto";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center mb-4 fw-bold text-primary">Editar Producto</h2>
+
+        @using (Html.BeginForm("EditarProducto", "Catalogo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(m => m.IdProducto)
+
+            <div class="row">
+                <!-- Nombre -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Nombre</label>
+                    @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control shadow-sm", placeholder = "Ingrese el nombre del producto" })
+                </div>
+
+                <!-- Precio -->
+                <div class="col-md-3 mb-3">
+                    <label class="form-label fw-bold">Precio</label>
+                    @Html.TextBoxFor(m => m.Precio, new { @class = "form-control shadow-sm", type = "number", step = "0.01" })
+                </div>
+
+                <!-- Stock -->
+                <div class="col-md-3 mb-3">
+                    <label class="form-label fw-bold">Stock</label>
+                    @Html.TextBoxFor(m => m.Stock, new { @class = "form-control shadow-sm", type = "number" })
+                </div>
+            </div>
+
+            <!-- Descripción -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">Descripción</label>
+                @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control shadow-sm", rows = 3 })
+            </div>
+
+            <!-- Categoría -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">Categoría</label>
+                @Html.DropDownList("IdCategoria",
+                    (IEnumerable<SelectListItem>)ViewBag.Categorias,
+                    "Seleccione una categoría",
+                    new { @class = "form-select shadow-sm" })
+            </div>
+
+            <!-- Imagen actual -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">Imagen actual</label>
+                <div class="mb-2">
+                    @if (!string.IsNullOrEmpty(Model.Imagen))
+                    {
+                        <img src="@Url.Content(Model.Imagen)" alt="Imagen" class="img-thumbnail" style="max-width: 180px;" />
+                    }
+                    else
+                    {
+                        <p class="text-muted fst-italic">No hay imagen registrada.</p>
+                    }
+                </div>
+            </div>
+
+            <!-- Nueva imagen -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">Cambiar imagen</label>
+                <input type="file" name="imagenArchivo" class="form-control shadow-sm" />
+            </div>
+
+            <!-- Estado -->
+            <div class="form-check form-switch mb-4">
+                @Html.CheckBoxFor(m => m.Estado, new { @class = "form-check-input" })
+                <label class="form-check-label fw-bold">Activo</label>
+            </div>
+
+            <!-- BOTONES -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success px-4 py-2 fw-bold shadow">
+                    ✔ Guardar Cambios
+                </button>
+
+                <a href="@Url.Action("Index", "Catalogo")" class="btn btn-danger px-4 py-2 fw-bold shadow ms-2">
+                    ✖ Cancelar
+                </a>
+            </div>
+        }
+    </div>
+</div>
