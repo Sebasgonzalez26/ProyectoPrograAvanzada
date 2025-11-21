@@ -1,12 +1,14 @@
 ﻿// VerPerfil.js
 
+console.log("VerPerfil.js cargado. urlConsultarCedulaPerfil =", typeof urlConsultarCedulaPerfil !== "undefined" ? urlConsultarCedulaPerfil : "NO DEFINIDA");
+
 function consultarCedula(identificacion) {
     $.ajax({
-        url: urlConsultarCedulaPerfil, // 👈 usamos la variable definida en la vista
+        url: urlConsultarCedulaPerfil, // usamos la variable definida en la vista
         type: 'GET',
         data: { id: identificacion },
         dataType: 'json',
-        success: function(result) {
+        success: function (result) {
             if (result.results && result.results.length > 0) {
                 var nombreCompleto = result.results[0].fullname;
                 $("#Nombre").val(nombreCompleto);
@@ -17,7 +19,7 @@ function consultarCedula(identificacion) {
                 $("#Nombre").closest(".form-group, .input-group").addClass("is-focused is-filled");
             }
         },
-        error: function() {
+        error: function () {
             console.log("Error en la consulta");
             $("#Nombre").val("Error al consultar");
             $("#Nombre").closest(".form-group, .input-group").addClass("is-focused is-filled");
@@ -25,10 +27,11 @@ function consultarCedula(identificacion) {
     });
 }
 
-$(document).ready(function() {
-    $("#Identificacion").on("keyup", function() {
+$(document).ready(function () {
+    $("#Identificacion").on("keyup", function () {
         var identificacion = $(this).val().trim();
         if (identificacion.length >= 8) { // o 9 si quieres
+            console.log("Consultando cédula:", identificacion);
             consultarCedula(identificacion);
         }
     });

@@ -5,8 +5,6 @@
 }
 
 <section>
-
-
     <style>
         /* separa el mensaje del input */
         .text-danger.text-sm {
@@ -38,7 +36,7 @@
                     <div class="card card-plain">
                         <div class="card-header">
                             <h4 class="font-weight-bolder">Registro</h4>
-                            <p class="mb-0">Porfavor Ingrese la informacion solicitada</p>
+                            <p class="mb-0">Por favor ingrese la información solicitada</p>
                         </div>
 
                         <div class="card-body">
@@ -53,29 +51,31 @@
                             @using (Html.BeginForm("Registro", "Home", FormMethod.Post, new { @id = "FormRegistro" }))
                             {
                                 <!-- Identificación -->
-                                <div class="input-group input-group-outline mb-3 @( !string.IsNullOrEmpty(Model?.Identificacion) ? "is-filled" : "" )">
+                                <div class="input-group input-group-outline mb-3 @(Model != null && !string.IsNullOrEmpty(Model.Identificacion) ? "is-filled" : "")">
                                     <label class="form-label">Identificación</label>
                                     @Html.TextBoxFor(m => m.Identificacion,
-                                        new { @class = "form-control", id = "Identificacion" })  <!-- 👈 SIN onkeyup -->
+                                        new { @class = "form-control", id = "Identificacion" })
                                 </div>
 
                                 <!-- Nombre -->
-                                <div class="input-group input-group-outline mb-3 @( !string.IsNullOrEmpty(Model?.Nombre) ? "is-filled" : "" )">
+                                <div class="input-group input-group-outline mb-3 @(Model != null && !string.IsNullOrEmpty(Model.Nombre) ? "is-filled" : "")">
                                     <label class="form-label">Nombre</label>
                                     @Html.TextBoxFor(m => m.Nombre,
                                         new { @class = "form-control", id = "Nombre", @readonly = "true" })
                                 </div>
 
                                 <!-- Correo -->
-                                <div class="input-group input-group-outline mb-3 @( !string.IsNullOrEmpty(Model?.CorreoElectronico) ? "is-filled" : "" )">
+                                <div class="input-group input-group-outline mb-3 @(Model != null && !string.IsNullOrEmpty(Model.CorreoElectronico) ? "is-filled" : "")">
                                     <label class="form-label">Email</label>
-                                    @Html.TextBoxFor(m => m.CorreoElectronico, new { @class = "form-control", type = "email" })
+                                    @Html.TextBoxFor(m => m.CorreoElectronico,
+                                        new { @class = "form-control", type = "email" })
                                 </div>
 
                                 <!-- Contraseña -->
-                                <div class="input-group input-group-outline mb-3 @( !string.IsNullOrEmpty(Model?.Contrasena) ? "is-filled" : "" )">
+                                <div class="input-group input-group-outline mb-3 @(Model != null && !string.IsNullOrEmpty(Model.Contrasena) ? "is-filled" : "")">
                                     <label class="form-label">Password</label>
-                                    @Html.PasswordFor(m => m.Contrasena, new { @class = "form-control" })
+                                    @Html.PasswordFor(m => m.Contrasena,
+                                        new { @class = "form-control" })
                                 </div>
 
                                 <div class="text-center">
@@ -86,8 +86,8 @@
 
                         <div class="card-footer text-center pt-0 px-lg-2 px-1">
                             <p class="mb-2 text-sm mx-auto">
-                                Ya tienes una cuenta?
-                                <a href="@Url.Action("Index", "Home")" class="text-primary text-gradient font-weight-bold">Inicia Sesion</a>
+                                ¿Ya tienes una cuenta?
+                                <a href="@Url.Action("Index", "Home")" class="text-primary text-gradient font-weight-bold">Inicia sesión</a>
                             </p>
                         </div>
                     </div>
@@ -100,11 +100,9 @@
 
 @section Scripts {
     <script>
-     
         const urlConsultarCedula = '@Url.Action("ConsultarCedula", "Home")';
     </script>
 
     <!-- Enlazamos el archivo JS externo -->
     <script src="~/Static/js/registro.js"></script>
 }
-

@@ -26,7 +26,7 @@
                     </p>
 
                     @* Rol / perfil del usuario *@
-                    @if (!string.IsNullOrEmpty(Model?.NombrePerfil))
+                    @if (Model != null && !string.IsNullOrEmpty(Model.NombrePerfil))
                     {
                         <span class="badge bg-gradient-primary text-xs">
                             @Model.NombrePerfil
@@ -41,21 +41,21 @@
                         @Html.HiddenFor(x => x.IdUsuario)
 
                         <!-- Identificación -->
-                        <div class="input-group input-group-outline mb-3 @( !string.IsNullOrEmpty(Model?.Identificacion) ? "is-filled" : "" )">
+                        <div class="input-group input-group-outline mb-3 @(Model != null && !string.IsNullOrEmpty(Model.Identificacion) ? "is-filled" : "")">
                             <label class="form-label">Identificación</label>
                             @Html.TextBoxFor(x => x.Identificacion,
                                 new { @class = "form-control", id = "Identificacion" })
                         </div>
 
                         <!-- Nombre (solo lectura, se actualiza desde la API) -->
-                        <div class="input-group input-group-outline mb-3 @( !string.IsNullOrEmpty(Model?.Nombre) ? "is-filled" : "" )">
+                        <div class="input-group input-group-outline mb-3 @(Model != null && !string.IsNullOrEmpty(Model.Nombre) ? "is-filled" : "")">
                             <label class="form-label">Nombre completo</label>
                             @Html.TextBoxFor(x => x.Nombre,
                                 new { @class = "form-control", id = "Nombre", @readonly = "true" })
                         </div>
 
                         <!-- Correo Electrónico -->
-                        <div class="input-group input-group-outline mb-4 @( !string.IsNullOrEmpty(Model?.CorreoElectronico) ? "is-filled" : "" )">
+                        <div class="input-group input-group-outline mb-4 @(Model != null && !string.IsNullOrEmpty(Model.CorreoElectronico) ? "is-filled" : "")">
                             <label class="form-label">Correo electrónico</label>
                             @Html.TextBoxFor(x => x.CorreoElectronico,
                                 new { @class = "form-control", type = "email" })
@@ -72,10 +72,10 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
+@section scripts {
     <script>
         // URL para consulta de cédula (API Gometa)
+        console.log("UrlConsultarCedulaPerfil:", '@ViewBag.UrlConsultarCedula');
         var urlConsultarCedulaPerfil = '@ViewBag.UrlConsultarCedula';
     </script>
     <script src="~/Static/js/VerPerfil.js"></script>

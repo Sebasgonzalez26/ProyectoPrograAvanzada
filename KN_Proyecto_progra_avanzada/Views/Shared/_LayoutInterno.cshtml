@@ -2,8 +2,6 @@
     var nombreUsuario = (Session["NombreUsuario"] == null ? "Invitado" : Session["NombreUsuario"].ToString());
 }
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,11 +20,7 @@
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link href="~/Static/css/material-dashboard.css" rel="stylesheet" />
 
-
-
     <style>
-
-        /* === ÍCONO DEL USUARIO (NAVBAR DERECHA) === */
         .account-icon {
             font-size: 40px !important;
             line-height: 1;
@@ -43,7 +37,6 @@
             align-items: center;
         }
 
-        /* === NAVBAR === */
         .navbar .nav-link {
             font-size: 16px;
             font-weight: 500;
@@ -65,7 +58,6 @@
             align-items: center;
         }
 
-        /* === FOOTER PEGADO AL FINAL === */
         .main-wrapper {
             min-height: calc(100vh - 90px);
             display: flex;
@@ -80,7 +72,6 @@
             margin-top: 40px;
         }
 
-        /* === DROPDOWN PERFIL === */
         .dropdown-menu {
             min-width: 180px;
             border-radius: .75rem;
@@ -91,11 +82,12 @@
             .dropdown-menu a.dropdown-item:hover {
                 background-color: #f1f5f9;
             }
+
+        /* Quitar el caret del dropdown */
+        .navbar .dropdown-toggle::after {
+            display: none !important;
+        }
     </style>
-
-
-
-
 
     @RenderSection("estilos", required: false)
 
@@ -115,12 +107,12 @@
                 </span>
             </a>
         </div>
+
         <hr class="horizontal dark mt-0 mb-2">
 
         <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
             <ul class="navbar-nav">
 
-                <!-- GESTIONES -->
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
                         Gestiones
@@ -148,7 +140,6 @@
                     </a>
                 </li>
 
-                <!-- CITAS -->
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
                         Calendario y control de citas
@@ -162,7 +153,6 @@
                     </a>
                 </li>
 
-                <!-- INVENTARIO -->
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
                         Inventario
@@ -176,7 +166,6 @@
                     </a>
                 </li>
 
-                <!-- TIENDA -->
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
                         Tienda en línea
@@ -190,21 +179,17 @@
                     </a>
                 </li>
 
-
-
             </ul>
         </div>
     </aside>
-
 
     <!-- CONTENIDO PRINCIPAL -->
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
 
         <!-- NAVBAR SUPERIOR -->
-        <nav class="navbar navbar-main navbar-expand
-             lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
-             data-scroll="true">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
             <div class="container-fluid py-1 px-3">
+
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     </ol>
@@ -214,38 +199,44 @@
                 <ul class="navbar-nav ms-auto d-flex align-items-center">
 
                     <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                        <a href="javascript:;"
-                           class="nav-link account-link dropdown-toggle"
-                           id="navbarDropdownMenuLink"
+                        <a href="#"
+                           class="nav-link account-link dropdown-toggle d-flex align-items-center"
+                           id="userDropdown"
                            role="button"
-                           data-bs-toggle="dropdown"
-                           aria-expanded="false">
+                           aria-expanded="false"
+                           style="gap:8px;">
 
-                            <div style="display:flex; align-items:center; gap:8px;">
-                                <span class="material-symbols-rounded account-icon">
-                                    account_circle
-                                </span>
+                            <span class="material-symbols-rounded account-icon">
+                                account_circle
+                            </span>
 
-                                <span class="fw-bold" style="font-size:16px;">
-                                    @nombreUsuario
-                                </span>
-                            </div>
-
+                            <span class="fw-bold" style="font-size:16px;">
+                                @nombreUsuario
+                            </span>
                         </a>
 
-                        <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="navbarDropdownMenuLink">
+                        <!-- 👇 le añadimos un id directo al menú -->
+                        <ul class="dropdown-menu dropdown-menu-end px-2" id="userDropdownMenu">
                             <li>
                                 <span class="dropdown-item-text fw-bold">
                                     @nombreUsuario
                                 </span>
                             </li>
+
                             <li>
-                                <a class="dropdown-item" href="@Url.Action("Perfil","Home")">
+                                <a class="dropdown-item" href="@Url.Action("VerPerfil","Usuario")">
                                     <i class="material-symbols-rounded me-2">person</i> Perfil
                                 </a>
                             </li>
+
                             <li>
-                                <a class="dropdown-item" href="@Url.Action("CerrarSesion","Login")">
+                                <a class="dropdown-item" href="@Url.Action("CambiarAcceso","Usuario")">
+                                    <i class="material-symbols-rounded me-2">shield_lock</i> Seguridad
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("CerrarSesion","Home")">
                                     <i class="material-symbols-rounded me-2">logout</i> Cerrar sesión
                                 </a>
                             </li>
@@ -254,39 +245,63 @@
 
                 </ul>
 
-
             </div>
         </nav>
 
-        <!-- CUERPO DEL CONTENIDO -->
         <div class="content-body px-3 py-4">
             @RenderBody()
         </div>
 
     </main>
 
-    <!-- FOOTER -->
     <footer class="footer py-3 mt-auto">
         <div class="container-fluid">
             <div class="row align-items-center justify-content-between">
                 <div class="col-lg-6 mb-lg-0 mb-4">
                     <div class="text-muted text-center text-sm text-lg-start">
                         ©
-                        <script>document.write(new Date().getFullYear())</script>,
-                        Proyecto Programación Avanzada – Mundo Animal Vet
+                        <script>document.write(new Date().getFullYear())</script>, Proyecto Programación Avanzada – Mundo Animal Vet
                     </div>
                 </div>
             </div>
         </div>
     </footer>
 
-    </div>
+    <!-- JS -->
+    <!-- jQuery desde CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    <!--   Core JS Files   -->
-    <script src="~/Static/js/core/popper.min.js"></script>
-    <script src="~/Static/js/core/bootstrap.min.js"></script>
-    <script src="~/Static/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="~/Static/js/plugins/smooth-scrollbar.min.js"></script>
+    <!-- Scripts locales (según tu carpeta Static/js) -->
+    <script src="~/Static/js/popper.min.js"></script>
+    <script src="~/Static/js/bootstrap.min.js"></script>
+    <script src="~/Static/js/perfect-scrollbar.min.js"></script>
+    <script src="~/Static/js/smooth-scrollbar.min.js"></script>
+    <script src="~/Static/js/material-dashboard.min.js"></script>
+
+    <!-- Script MANUAL para el dropdown del usuario (independiente de Bootstrap) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var trigger = document.getElementById('userDropdown');
+            var menu = document.getElementById('userDropdownMenu');
+
+            if (!trigger || !menu) return;
+
+            // Abrir/cerrar al hacer click en el usuario
+            trigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                menu.classList.toggle('show');
+            });
+
+            // Cerrar si hago click fuera
+            document.addEventListener('click', function (e) {
+                if (!menu.classList.contains('show')) return;
+                if (!trigger.contains(e.target) && !menu.contains(e.target)) {
+                    menu.classList.remove('show');
+                }
+            });
+        });
+    </script>
 
     @RenderSection("scripts", required: false)
 

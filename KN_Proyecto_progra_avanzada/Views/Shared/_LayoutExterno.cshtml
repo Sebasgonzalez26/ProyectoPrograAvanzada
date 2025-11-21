@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- ICONOS -->
-    <link rel="apple-touch-icon" sizes="76x76" href="~/Static/img/apple-icon.png" />
-    <link rel="icon" type="image/png" href="~/Static/img/favicon.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="~/Static/icons/apple-icon.png" />
+    <link rel="icon" type="image/png" href="~/Static/icons/favicon.png" />
 
     <title>Proyecto Programación Avanzada</title>
 
@@ -17,11 +17,13 @@
     <link href="~/Static/css/nucleo-icons.css" rel="stylesheet" />
     <link href="~/Static/css/nucleo-svg.css" rel="stylesheet" />
 
-    <!-- Font Awesome (usa este si el otro te da 403) -->
+    <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" crossorigin="anonymous"></script>
 
     <!-- CSS principal del dashboard -->
     <link href="~/Static/css/material-dashboard.css" rel="stylesheet" />
+
+    @RenderSection("Estilos", required: false)
 </head>
 <body class="bg-gray-200">
     <div class="container position-sticky z-index-sticky top-0">
@@ -35,25 +37,23 @@
     <main class="main-content mt-0">
         @RenderBody()
     </main>
-    <!-- jQuery SIEMPRE antes que Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- ✅ Plugin de jQuery Validation -->
+    <!-- ============= SCRIPTS ============= -->
+    <!-- 1. jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 2. jQuery Validation (si lo usas) -->
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 
-    <!-- (Opcional) plugin de mensajes en español -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/localization/messages_es.min.js"></script> -->
-    <!-- Ahora sí Bootstrap y los demás -->
+    <!-- 3. Scripts del template (rutas reales) -->
     <script src="~/Static/js/popper.min.js"></script>
     <script src="~/Static/js/bootstrap.min.js"></script>
-
     <script src="~/Static/js/perfect-scrollbar.min.js"></script>
     <script src="~/Static/js/smooth-scrollbar.min.js"></script>
     <script src="~/Static/js/material-dashboard.min.js"></script>
 
+    <!-- 4. Scripts específicos de cada vista (Iniciar.js, Registro.js, etc.) -->
     @RenderSection("Scripts", required: false)
-
-
 
 </body>
 </html>
