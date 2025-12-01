@@ -1,0 +1,21 @@
+﻿/* icono redondo centrado para las tarjetas de arriba */
+.kpi-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex: 0 0 46px;
+}
+
+.kpi-card .card-body {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.kpi-text p {
+    line-height: 1.1;
+}

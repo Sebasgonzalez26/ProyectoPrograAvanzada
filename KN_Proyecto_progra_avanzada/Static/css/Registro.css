@@ -1,0 +1,10 @@
+﻿/* separa el mensaje del input */
+.text-danger.text-sm {
+    display: block;
+    margin-top: 4px;
+}
+
+/* marca el input-group cuando hay error */
+.input-group.is-invalid .form-control {
+    border-color: #dc3545 !important;
+}

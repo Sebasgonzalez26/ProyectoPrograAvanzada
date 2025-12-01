@@ -1,0 +1,18 @@
+﻿/* IniciarSesion.css */
+
+.validation-msg {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.78rem;
+    color: #ffe5e5; /* texto claro porque el fondo es oscuro */
+    font-weight: 500;
+}
+
+.input-group.has-error .form-control {
+    border-color: #ff7676 !important;
+    box-shadow: 0 0 0 1px rgba(255, 165, 165, 0.12);
+}
+
+.input-group.input-group-outline {
+    margin-bottom: 1rem;
+}

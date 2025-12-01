@@ -16,7 +16,7 @@ namespace KN_Proyecto_progra_avanzada.Controllers
 {
 
 
-    [OutputCache(Duration = 0, Location = OutputCacheLocation.None, NoStore = true, VaryByParam ="*")]
+    [OutputCache(Duration = 0, Location = OutputCacheLocation.None, NoStore = true, VaryByParam = "*")]
     public class HomeController : Controller
     {
         // ----------------- LOGIN -----------------
@@ -119,8 +119,8 @@ namespace KN_Proyecto_progra_avanzada.Controllers
 
                 if (resultadoConsulta != null)
                 {
-                    // 1. Generar contraseña
-                    var contrasennaGenerada = GenerarContrasenna();
+                    // 1. Generar contraseña con el service
+                    var contrasennaGenerada = RecuperacionService.GenerarContrasenna();
 
                     // 2. Actualizar la contraseña al usuario en la BD
                     // OJO: esto es en texto plano; idealmente la encriptas/hasheas
@@ -130,7 +130,7 @@ namespace KN_Proyecto_progra_avanzada.Controllers
                     // 3. Enviar el correo solo si se guardó en la BD
                     if (resultadoActualizacion > 0)
                     {
-                        EnviarCorreoRecuperacion(
+                        RecuperacionService.EnviarCorreoRecuperacion(
                             "Contraseña de acceso",
                             contrasennaGenerada,
                             resultadoConsulta.CorreoElectronico
@@ -142,7 +142,7 @@ namespace KN_Proyecto_progra_avanzada.Controllers
                 }
 
                 ViewBag.Mensaje = "La información no se ha podido restablecer.";
-                return View();
+                return View(usuario);
             }
         }
 
@@ -172,83 +172,9 @@ namespace KN_Proyecto_progra_avanzada.Controllers
         public ActionResult CerrarSesion()
         {
             Session.Clear();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
 
         }
 
-
-
-        // =====================================================================
-        // MÉTODOS PRIVADOS
-        // =====================================================================
-
-      
-        private string GenerarContrasenna()
-        {
-            int longitud = 8;
-            const string caracteres = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789";
-            char[] resultado = new char[longitud];
-
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                byte[] buffer = new byte[sizeof(uint)];
-
-                for (int i = 0; i < longitud; i++)
-                {
-                    rng.GetBytes(buffer);
-                    uint num = BitConverter.ToUInt32(buffer, 0);
-                    resultado[i] = caracteres[(int)(num % (uint)caracteres.Length)];
-                }
-            }
-
-            return new string(resultado);
-        }
-
-        // Enviar correo de recuperación con HTML bonito
-        private void EnviarCorreoRecuperacion(string asunto, string contrasenna, string destinatario)
-        {
-            var correoSMTP = ConfigurationManager.AppSettings["CorreoSMTP"];
-            var contrasennaSMTP = ConfigurationManager.AppSettings["ContrasennaSMTP"];
-
-            var smtp = new SmtpClient("smtp.office365.com")
-            {
-                Port = 587, // 587 = TLS
-                EnableSsl = true,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(correoSMTP, contrasennaSMTP)
-            };
-
-            // Armamos el HTML y sustituimos la contraseña
-            string cuerpoHtml = GetPlantillaRecuperacion()
-                                    .Replace("{{PASSWORD}}", contrasenna);
-
-            var mensaje = new MailMessage
-            {
-                From = new MailAddress(correoSMTP, "Mundo Animal Vet"),
-                Subject = asunto,
-                Body = cuerpoHtml,
-                IsBodyHtml = true
-            };
-
-            mensaje.To.Add(destinatario);
-
-            smtp.Send(mensaje);
-        }
-
-
-        private string GetPlantillaRecuperacion()
-        {
-            // Ruta física del archivo dentro del proyecto
-            var ruta = Server.MapPath("~/Templates/templateRecuperacion.html");
-
-            // Leer el contenido completo del archivo
-            return System.IO.File.ReadAllText(ruta);
-        }
-
-
-        
-
-
-       
     }
 }
