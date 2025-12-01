@@ -1,7 +1,6 @@
 ﻿@model List<KN_Proyecto_progra_avanzada.EF.tbCatalogo>
 
 @{
-    ViewBag.Title = "Catálogo";
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
 }
 
@@ -18,7 +17,7 @@
     <div class="card shadow-sm border-0">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table align-middle mb-0 table-hover">
+                <table id="tCatalogo" class="table align-middle mb-0 table-hover">
                     <thead class="table-light">
                         <tr>
                             <th>Imagen</th>
@@ -104,28 +103,24 @@
         </div>
     </div>
 
+
+
+
+
 </div>
 
-@section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@section scripts {
     <script>
-        function confirmarEliminar(idProducto, nombre) {
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "Se eliminará el producto: " + nombre,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Redirige al controller para eliminar
-                    window.location.href = '@Url.Action("EliminarProductoConfirmed", "Catalogo")/' + idProducto;
-                }
+        document.addEventListener('DOMContentLoaded', function () {
+            var table = new DataTable('#tCatalogo', {
+                scrollX: true, // activa scroll horizontal si la tabla es muy ancha
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/2.3.5/i18n/es-ES.json'
+                },
+                // Opcional: personalizar opciones iniciales
+                pageLength: 10,     // cuántas filas mostrar por página
+                lengthMenu: [5, 10, 25, 50, 100], // opciones del selector
             });
-        }
+        });
     </script>
 }
-

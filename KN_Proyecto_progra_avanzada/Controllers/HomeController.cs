@@ -42,6 +42,8 @@ namespace KN_Proyecto_progra_avanzada.Controllers
                     Session["IdUsuario"] = resultado.IdUsuario;
 
                     Session["NombreUsuario"] = resultado.Nombre;
+
+                    Session["IdPerfil"] = resultado.IdPerfil;
                     return RedirectToAction("Principal", "Home");
                 }
                 else
