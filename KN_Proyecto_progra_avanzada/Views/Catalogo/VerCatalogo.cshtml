@@ -1,5 +1,4 @@
-﻿@model List<KN_Proyecto_progra_avanzada.EF.tbCatalogo>
-
+﻿@model  List<KN_Proyecto_progra_avanzada.Models.Catalogo>
 @{
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
 }
@@ -9,7 +8,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="text-dark fw-bold">Catálogo de productos</h3>
 
-        <a href="@Url.Action("AgregarProducto", "Catalogo")" class="btn btn-success shadow-sm">
+        <a href="@Url.Action("AgregarCatalogo", "Catalogo")" class="btn btn-success shadow-sm">
             <i class="material-symbols-rounded align-middle">add_circle</i> Agregar producto
         </a>
     </div>
@@ -58,10 +57,9 @@
                                     <td><span class="badge bg-gradient-success">₡@item.Precio</span></td>
                                     <td>@item.Stock</td>
                                     <td>
-                                        @(item.tbCategoria != null
-                                            ? item.tbCategoria.Nombre
-                                            : "Sin categoría")
+                                        @item.CategoriaNombre
                                     </td>
+
 
                                     <td>
                                         @if (item.Estado == true)
@@ -109,18 +107,12 @@
 
 </div>
 
+
+
 @section scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var table = new DataTable('#tCatalogo', {
-                scrollX: true, // activa scroll horizontal si la tabla es muy ancha
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/2.3.5/i18n/es-ES.json'
-                },
-                // Opcional: personalizar opciones iniciales
-                pageLength: 10,     // cuántas filas mostrar por página
-                lengthMenu: [5, 10, 25, 50, 100], // opciones del selector
-            });
-        });
-    </script>
+
+
+    <script src="~/Static/js/VerCatalogo.js"></script>
+
+
 }

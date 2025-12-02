@@ -14,6 +14,10 @@ namespace KN_Proyecto_progra_avanzada.Models
         public string Imagen { get; set; }
         public DateTime FechaRegistro { get; set; }
         public bool Estado { get; set; }
+
+
+
+        public String CategoriaNombre { get; set; }
     }
 
 }

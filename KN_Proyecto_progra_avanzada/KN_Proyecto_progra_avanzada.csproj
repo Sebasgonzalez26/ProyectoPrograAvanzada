@@ -204,6 +204,7 @@
     <Content Include="Static\js\popper.min.js" />
     <Content Include="Static\js\Registro.js" />
     <Content Include="Static\js\smooth-scrollbar.min.js" />
+    <Content Include="Static\js\VerCatalogo.js" />
     <Content Include="Static\js\VerPerfil.js" />
     <Content Include="Templates\templateRecuperacion.html" />
     <Content Include="Web.config" />
@@ -240,6 +241,7 @@
     <Content Include="Views\Catalogo\VerCatalogo.cshtml" />
     <Content Include="Views\Usuario\VerPerfil.cshtml" />
     <Content Include="Views\Usuario\CambiarAcceso.cshtml" />
+    <Content Include="Views\Catalogo\AgregarCatalogo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
