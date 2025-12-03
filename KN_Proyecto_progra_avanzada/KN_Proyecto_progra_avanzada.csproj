@@ -197,6 +197,8 @@
     <Content Include="Static\icons\logo-ct-dark.png" />
     <Content Include="Static\icons\logo-spotify.svg" />
     <Content Include="Static\icons\team-2.jpg" />
+    <Content Include="Static\js\ActualizarCatalogo.js" />
+    <Content Include="Static\js\AgregarCatalogo.js" />
     <Content Include="Static\js\bootstrap.min.js" />
     <Content Include="Static\js\Iniciar.js" />
     <Content Include="Static\js\material-dashboard.min.js" />
@@ -223,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="imgCatalogos\" />
     <Folder Include="NewFolder1\" />
     <Folder Include="Static\imagenes\" />
   </ItemGroup>
@@ -242,6 +245,7 @@
     <Content Include="Views\Usuario\VerPerfil.cshtml" />
     <Content Include="Views\Usuario\CambiarAcceso.cshtml" />
     <Content Include="Views\Catalogo\AgregarCatalogo.cshtml" />
+    <Content Include="Views\Catalogo\ActualizarCatalogo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

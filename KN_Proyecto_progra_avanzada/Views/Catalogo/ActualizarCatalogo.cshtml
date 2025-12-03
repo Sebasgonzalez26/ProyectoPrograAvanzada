@@ -39,15 +39,20 @@
 
             <div class="card shadow-sm border-0">
                 <div class="card-header pb-0 bg-transparent">
-                    <h4 class="font-weight-bolder mb-1">Agregar producto</h4>
+                    <h4 class="font-weight-bolder mb-1">Actualizar Producto</h4>
                     <p class="text-sm text-muted mb-0">
                         Registra un nuevo ítem en el catálogo.
                     </p>
                 </div>
 
                 <div class="card-body pt-3 catalogo-form">
-                    @using (Html.BeginForm("AgregarCatalogo", "Catalogo", FormMethod.Post, new { @id = "FormAgregarCatalogo", @enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("ActualizarCatalogo", "Catalogo", FormMethod.Post, new { @id = "FormActualizarCatalogo", @enctype = "multipart/form-data" }))
                     {
+
+
+                        @Html.HiddenFor(x => x.IdProducto)
+
+
                         <!-- Nombre -->
                         <div class="mb-3">
                             <label for="Nombre" class="form-label">Nombre</label>
@@ -67,10 +72,11 @@
                             <!-- Precio -->
                             <div class="col-md-6 mb-3">
                                 <label for="Precio" class="form-label">Precio</label>
-                                @Html.TextBoxFor(
-                                    x => x.Precio,
-                                    new { @class = "form-control", type = "number", step = "0.01" }
-                                )
+                                                                    @Html.TextBoxFor(
+                                        x => x.Precio,
+                                        new { @class = "form-control" }   
+                                    )
+
                             </div>
 
                             <!-- Stock -->
@@ -118,5 +124,5 @@
 </div>
 
 @section scripts {
-    <script src="~/Static/js/AgregarCatalogo.js"></script>
+    <script src="~/Static/js/ActualizarCatalogo.js"></script>
 }

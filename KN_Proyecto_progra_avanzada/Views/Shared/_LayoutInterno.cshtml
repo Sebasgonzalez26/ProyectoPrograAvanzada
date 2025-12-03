@@ -282,7 +282,7 @@
     </footer>
 
     <!-- JS -->
-    <!-- jQuery desde CDN -->
+    <!-- jQuery base -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <!-- Scripts locales -->
@@ -292,9 +292,14 @@
     <script src="~/Static/js/smooth-scrollbar.min.js"></script>
     <script src="~/Static/js/material-dashboard.min.js"></script>
 
-    <!-- DataTables (SIN async/defer) -->
+    <!-- DataTables -->
     <script src="https://cdn.datatables.net/2.3.5/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.3.5/js/dataTables.bootstrap5.js"></script>
+
+    <!-- 🔹 jQuery Validate DESDE CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <!-- (opcional) unobtrusive, si no lo usás lo podés quitar -->
+    @* <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script> *@
 
     @RenderSection("scripts", required: false)
 

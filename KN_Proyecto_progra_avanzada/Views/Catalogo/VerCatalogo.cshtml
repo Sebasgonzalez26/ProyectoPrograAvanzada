@@ -73,7 +73,7 @@
                                     </td>
 
                                     <td class="text-center">
-                                        <a href="@Url.Action("EditarProducto", "Catalogo", new { id = item.IdProducto })"
+                                        <a href="@Url.Action("ActualizarCatalogo", "Catalogo", new { q = item.IdProducto })"
                                            class="btn btn-sm btn-primary shadow-sm me-2">
                                             <i class="material-symbols-rounded align-middle">edit</i>
                                         </a>
@@ -85,6 +85,9 @@
                                     </td>
                                 </tr>
                             }
+
+
+
                         }
                         else
                         {

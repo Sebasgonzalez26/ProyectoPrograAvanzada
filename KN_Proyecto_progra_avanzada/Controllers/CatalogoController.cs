@@ -9,6 +9,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 
+using System.IO;
+
+
 namespace KN_Proyecto_progra_avanzada.Controllers
 {
     [OutputCache(Duration = 0, Location = OutputCacheLocation.None, NoStore = true, VaryByParam = "*")]
@@ -54,19 +57,170 @@ namespace KN_Proyecto_progra_avanzada.Controllers
         }
 
         [HttpPost]
-        public ActionResult AgregarCatalogo(Catalogo catalogo)
+        public ActionResult AgregarCatalogo(Catalogo catalogo, HttpPostedFileBase ImgCatalogo)
         {
-            if (!ModelState.IsValid)
+
+            using (var context = new BDProyecto_KNEntities())
             {
-                CargarCategorias();       // 🔹 Volvemos a poblar el combo
-                return View(catalogo);
+                var nuevoCatalogo = new tbCatalogo
+                {
+                    // IdProducto NO lo toques si es IDENTITY
+                    Nombre = catalogo.Nombre,
+                    Descripcion = catalogo.Descripcion,
+                    Precio = catalogo.Precio,
+                    Stock = catalogo.Stock,
+                    Imagen = string.Empty,
+                    FechaRegistro = DateTime.Now,
+                    Estado = true,
+                    IdCategoria = catalogo.IdCategoria
+                };
+
+                context.tbCatalogo.Add(nuevoCatalogo);
+                var resultadoInsercion = context.SaveChanges();
+
+                if (resultadoInsercion > 0)
+                {
+
+                    //guardar la imagen 
+                    var ext = Path.GetExtension(ImgCatalogo.FileName);
+
+                    var rutaImagen =  AppDomain.CurrentDomain.BaseDirectory + "imgCatalogos\\" + nuevoCatalogo.IdProducto + ext;
+                    ImgCatalogo.SaveAs(rutaImagen);
+
+
+
+                    //Actualizar la ruta de la imagen 
+                    nuevoCatalogo.Imagen = "/imgCatalogos/" + nuevoCatalogo.IdProducto + ext;
+                    context.SaveChanges();
+
+
+
+
+
+                    return RedirectToAction("VerCatalogo", "Catalogo");
+                }
+
+
             }
 
-            // Aquí luego vas a guardar en la BD
-            // ...
+            CargarCategorias();
+            ViewBag.Mensake = "La informacion no se pudo regisrar";
+            return View();
 
-            return RedirectToAction("VerCatalogo");
+
+
         }
+
+
+
+        //--------------------------------------
+        //------Actualizar----------------------
+        //----------------------------
+
+
+
+        [HttpGet]
+        public ActionResult ActualizarCatalogo(int q)
+        {
+            using (var context = new BDProyecto_KNEntities())
+            {
+                // 🔹 Mandamos el modelo con los datos a actualizar
+
+
+                //Tomar el objeto de la BD
+                var resultado = context.tbCatalogo
+                                       
+                                       .Where(x => x.IdProducto == q)
+                                       .ToList();
+
+                //Convertirlo en un objeto Propio
+                var datos = resultado.Select(p => new Catalogo
+                {
+
+                    IdProducto = p.IdProducto,
+                    Nombre = p.Nombre,
+                    Descripcion = p.Descripcion,
+                    Precio = p.Precio,
+                    Stock = p.Stock,
+                    Imagen = p.Imagen,
+                    IdCategoria = p.IdCategoria,
+                
+
+                }).FirstOrDefault();
+
+
+
+                CargarCategorias();
+                return View(datos);
+
+
+            }
+        }
+
+
+
+
+        // 🔹 Llenamos ViewBag.Categorias
+
+        [HttpPost]
+        public ActionResult ActualizarCatalogo(Catalogo catalogo, HttpPostedFileBase ImgCatalogo)
+        {
+
+            using (var context = new BDProyecto_KNEntities())
+            {
+
+                //Tomar el objeto de la BD
+                var resultadoConsulta = context.tbCatalogo
+                                               .Where(x => x.IdProducto == catalogo.IdProducto)
+                                               .FirstOrDefault();
+
+                //Si existe se manda a actualizar
+                if (resultadoConsulta != null)
+                {
+                    //Actualizar los campos del formulario
+                    resultadoConsulta.Nombre = catalogo.Nombre;
+                    resultadoConsulta.Descripcion = catalogo.Descripcion;
+                    resultadoConsulta.Precio = catalogo.Precio;
+                    resultadoConsulta.Stock = catalogo.Stock;
+                    resultadoConsulta.IdCategoria = catalogo.IdCategoria;
+
+                    var resultadoActualizacion = context.SaveChanges();
+
+                    if (resultadoActualizacion > 0)
+                    {
+                        return RedirectToAction("VerCatalogo", "Catalogo");
+                    }
+
+                    // Si llegó aquí, no se actualizó nada
+                    CargarCategorias();
+                    ViewBag.Mensaje = "La informacion no se ha podido actualizar";
+                    return View();
+                }
+            }
+
+            // Si no encontró el producto (resultadoConsulta == null)
+            CargarCategorias();
+            ViewBag.Mensaje = "La informacion no se ha podido actualizar";
+            return View();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //--------------------------------------
+        //------Actualizar----------------------
+        //----------------------------
+
+
 
 
         private void CargarCategorias()
