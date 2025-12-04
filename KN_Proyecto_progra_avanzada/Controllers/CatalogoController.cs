@@ -24,28 +24,10 @@ namespace KN_Proyecto_progra_avanzada.Controllers
         [HttpGet]
         public ActionResult VerCatalogo()
         {
-            using (var context = new BDProyecto_KNEntities())
-            {
-                var resultado = context.tbCatalogo
-                                       .Include(c => c.tbCategoria)
-                                       .ToList()
-                                       .Select(c => new Catalogo
-                                       {
-                                           IdProducto = c.IdProducto,
-                                           Nombre = c.Nombre,
-                                           Descripcion = c.Descripcion,
-                                           Precio = c.Precio,
-                                           Stock = c.Stock,
-                                           Imagen = c.Imagen,
-                                           Estado = c.Estado,
-                                           CategoriaNombre = c.tbCategoria != null
-                                                               ? c.tbCategoria.Nombre
-                                                               : "Sin categoría"
-                                       })
-                                       .ToList();
 
-                return View(resultado);
-            }
+            var resultado = ConsultarCatalogo();
+            return View(resultado);
+
         }
 
 
@@ -84,7 +66,7 @@ namespace KN_Proyecto_progra_avanzada.Controllers
                     //guardar la imagen 
                     var ext = Path.GetExtension(ImgCatalogo.FileName);
 
-                    var rutaImagen =  AppDomain.CurrentDomain.BaseDirectory + "imgCatalogos\\" + nuevoCatalogo.IdProducto + ext;
+                    var rutaImagen = AppDomain.CurrentDomain.BaseDirectory + "imgCatalogos\\" + nuevoCatalogo.IdProducto + ext;
                     ImgCatalogo.SaveAs(rutaImagen);
 
 
@@ -129,7 +111,7 @@ namespace KN_Proyecto_progra_avanzada.Controllers
 
                 //Tomar el objeto de la BD
                 var resultado = context.tbCatalogo
-                                       
+
                                        .Where(x => x.IdProducto == q)
                                        .ToList();
 
@@ -144,7 +126,7 @@ namespace KN_Proyecto_progra_avanzada.Controllers
                     Stock = p.Stock,
                     Imagen = p.Imagen,
                     IdCategoria = p.IdCategoria,
-                
+
 
                 }).FirstOrDefault();
 
@@ -194,7 +176,7 @@ namespace KN_Proyecto_progra_avanzada.Controllers
                     // Si llegó aquí, no se actualizó nada
                     CargarCategorias();
                     ViewBag.Mensaje = "La informacion no se ha podido actualizar";
-                    return View();
+                    return View(catalogo);
                 }
             }
 
@@ -222,6 +204,51 @@ namespace KN_Proyecto_progra_avanzada.Controllers
 
 
 
+        //--------------------------------------
+        //------Ddelete----------------------
+        //----------------------------
+        [HttpGet]
+
+
+        public ActionResult CambiarEstadoCatalogo(int q)
+        {
+
+
+            using (var context = new BDProyecto_KNEntities())
+            {
+                var resultadoConsulta = context.tbCatalogo.Where(x => x.IdProducto == q).FirstOrDefault();
+
+
+                if (resultadoConsulta != null)
+                {
+                    resultadoConsulta.Estado = resultadoConsulta.Estado ? false : true;
+
+
+                    var resultadoActualizacion = context.SaveChanges();
+
+
+                    if (resultadoActualizacion > 0)
+                        return RedirectToAction("VerCatalogo", "Catalogo");
+
+                }
+
+                var resultado = ConsultarCatalogo();
+
+                ViewBag.Mensaje = "El estado no se puede actualizar, intente de nuevo";
+                return View("VerCatalogo", resultado);
+
+            }
+
+
+
+        }
+
+
+
+
+
+
+
 
         private void CargarCategorias()
         {
@@ -242,6 +269,36 @@ namespace KN_Proyecto_progra_avanzada.Controllers
                     "Nombre"
                 );
             }
+        }
+
+
+
+        private List<Catalogo> ConsultarCatalogo()
+        {
+
+            using (var context = new BDProyecto_KNEntities())
+            {
+                var resultado = context.tbCatalogo
+                                       .Include(c => c.tbCategoria)
+                                       .ToList()
+                                       .Select(c => new Catalogo
+                                       {
+                                           IdProducto = c.IdProducto,
+                                           Nombre = c.Nombre,
+                                           Descripcion = c.Descripcion,
+                                           Precio = c.Precio,
+                                           Stock = c.Stock,
+                                           Imagen = c.Imagen,
+                                           Estado = c.Estado,
+                                           CategoriaNombre = c.tbCategoria != null
+                                                               ? c.tbCategoria.Nombre
+                                                               : "Sin categoría"
+                                       })
+                                       .ToList();
+
+                return resultado;
+            }
+
         }
 
 

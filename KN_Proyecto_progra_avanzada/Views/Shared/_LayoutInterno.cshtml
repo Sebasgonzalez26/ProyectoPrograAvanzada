@@ -1,6 +1,5 @@
 ﻿@{
     var nombreUsuario = (Session["NombreUsuario"] == null ? "Invitado" : Session["NombreUsuario"].ToString());
-
     var idPerfil = (Session["IdPerfil"] == null ? "0" : Session["IdPerfil"].ToString());
 }
 
@@ -16,16 +15,21 @@
     <title>Proyecto progra avanzada</title>
 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
+
+    <!-- 🔹 Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2Lw=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+
     <link href="~/Static/css/nucleo-icons.css" rel="stylesheet" />
     <link href="~/Static/css/nucleo-svg.css" rel="stylesheet" />
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link href="~/Static/css/material-dashboard.css" rel="stylesheet" />
-
     <link href="~/Static/css/nucleo-svg.css" rel="stylesheet" />
-
     <link href="https://cdn.datatables.net/2.3.5/css/dataTables.bootstrap5.css" rel="stylesheet" />
-
 
     <style>
         .account-icon {
@@ -97,14 +101,9 @@
     </style>
 
     @RenderSection("estilos", required: false)
-
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
-
-
-
-
     <!-- BARRA LATERAL -->
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 bg-white my-2"
            id="sidenav-main">
@@ -122,11 +121,8 @@
 
         <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
             <ul class="navbar-nav">
-
-
                 @if (idPerfil == "1")
                 {
-
                     <li class="nav-item mt-3">
                         <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
                             Gestiones
@@ -193,25 +189,21 @@
                         <span class="nav-link-text ms-1">Catálogo</span>
                     </a>
                 </li>
-
             </ul>
         </div>
     </aside>
 
     <!-- CONTENIDO PRINCIPAL -->
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-
         <!-- NAVBAR SUPERIOR -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
             <div class="container-fluid py-1 px-3">
-
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     </ol>
                 </nav>
 
                 <ul class="navbar-nav ms-auto d-flex align-items-center">
-
                     <li class="nav-item dropdown pe-2 d-flex align-items-center">
                         <a href="#"
                            class="nav-link account-link dropdown-toggle d-flex align-items-center"
@@ -219,16 +211,13 @@
                            role="button"
                            aria-expanded="false"
                            style="gap:8px;">
-
                             <span class="material-symbols-rounded account-icon">
                                 account_circle
                             </span>
-
                             <span class="fw-bold" style="font-size:16px;">
                                 @nombreUsuario
                             </span>
                         </a>
-
 
                         <ul class="dropdown-menu dropdown-menu-end px-2" id="userDropdownMenu">
                             <li>
@@ -236,19 +225,16 @@
                                     @nombreUsuario
                                 </span>
                             </li>
-
                             <li>
                                 <a class="dropdown-item" href="@Url.Action("VerPerfil","Usuario")">
                                     <i class="material-symbols-rounded me-2">person</i> Perfil
                                 </a>
                             </li>
-
                             <li>
                                 <a class="dropdown-item" href="@Url.Action("CambiarAcceso","Usuario")">
                                     <i class="material-symbols-rounded me-2">shield_lock</i> Seguridad
                                 </a>
                             </li>
-
                             <li>
                                 <a class="dropdown-item" href="@Url.Action("CerrarSesion","Home")">
                                     <i class="material-symbols-rounded me-2">logout</i> Cerrar sesión
@@ -256,7 +242,6 @@
                             </li>
                         </ul>
                     </li>
-
                 </ul>
 
             </div>
@@ -265,7 +250,6 @@
         <div class="content-body px-3 py-4">
             @RenderBody()
         </div>
-
     </main>
 
     <footer class="footer py-3 mt-auto">
@@ -282,10 +266,7 @@
     </footer>
 
     <!-- JS -->
-    <!-- jQuery base -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-    <!-- Scripts locales -->
     <script src="~/Static/js/popper.min.js"></script>
     <script src="~/Static/js/bootstrap.min.js"></script>
     <script src="~/Static/js/perfect-scrollbar.min.js"></script>
@@ -296,16 +277,12 @@
     <script src="https://cdn.datatables.net/2.3.5/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.3.5/js/dataTables.bootstrap5.js"></script>
 
-    <!-- 🔹 jQuery Validate DESDE CDN -->
+    <!-- jQuery Validate -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <!-- (opcional) unobtrusive, si no lo usás lo podés quitar -->
-    @* <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script> *@
 
     @RenderSection("scripts", required: false)
 
-
-
-    <!-- Script MANUAL para el dropdown del usuario (independiente de Bootstrap) -->
+    <!-- Script para el dropdown del usuario -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var trigger = document.getElementById('userDropdown');
@@ -313,14 +290,12 @@
 
             if (!trigger || !menu) return;
 
-            // Abrir/cerrar al hacer click en el usuario
             trigger.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 menu.classList.toggle('show');
             });
 
-            // Cerrar si hago click fuera
             document.addEventListener('click', function (e) {
                 if (!menu.classList.contains('show')) return;
                 if (!trigger.contains(e.target) && !menu.contains(e.target)) {
@@ -329,7 +304,5 @@
             });
         });
     </script>
-
-
 </body>
 </html>

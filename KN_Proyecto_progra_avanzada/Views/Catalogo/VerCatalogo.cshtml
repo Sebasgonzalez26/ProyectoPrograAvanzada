@@ -78,11 +78,14 @@
                                             <i class="material-symbols-rounded align-middle">edit</i>
                                         </a>
 
-                                        <button type="button" class="btn btn-sm btn-danger shadow-sm"
-                                                onclick="confirmarEliminar(@item.IdProducto, '@item.Nombre')">
-                                            <i class="material-symbols-rounded align-middle">delete</i>
-                                        </button>
+                                        <div class="form-check form-switch d-inline-block">
+                                            <input class="form-check-input"
+                                                   type="checkbox"
+                                                   @(item.Estado ? "checked" : "")
+                                                   onclick="location.href='@Url.Action("CambiarEstadoCatalogo", "Catalogo", new { q = item.IdProducto })'">
+                                        </div>
                                     </td>
+
                                 </tr>
                             }
 
