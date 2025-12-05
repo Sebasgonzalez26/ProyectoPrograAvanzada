@@ -64,7 +64,7 @@
                                             <input class="form-check-input"
                                                    type="checkbox"
                                                    @(item.Estado ? "checked" : "")
-                                                   onclick="location.href='@Url.Action("CambiarEstadoCliente", "Cliente", new { id = item.IdCliente })'">
+                                                   onclick="location.href='@Url.Action("CambiarEstadoCliente", "Cliente", new { q = item.IdCliente })'">
                                         </div>
                                     </td>
                                 </tr>

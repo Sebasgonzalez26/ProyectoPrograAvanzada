@@ -171,6 +171,33 @@ namespace KN_Proyecto_progra_avanzada.Controllers
 
 
 
+        [HttpGet]
+        public ActionResult CambiarEstadoCliente(int q)
+        {
+            using (var context = new BDProyecto_KNEntities())
+            {
+                var resultadoConsulta = context.tbClientes
+                    .FirstOrDefault(x => x.IdCliente == q);
+
+                if (resultadoConsulta != null)
+                {
+                    // Toggle del estado
+                    resultadoConsulta.Estado = !resultadoConsulta.Estado;
+
+                    var resultadoActualizacion = context.SaveChanges();
+
+                    if (resultadoActualizacion > 0)
+                    {
+                        return RedirectToAction("VerClientes", "Cliente");
+                    }
+                }
+
+                var resultado = ConsultarCliente();
+                ViewBag.Mensaje = "El estado no se pudo actualizar, intente de nuevo.";
+                return View("VerClientes", resultado);
+            }
+        }
+
 
 
 
