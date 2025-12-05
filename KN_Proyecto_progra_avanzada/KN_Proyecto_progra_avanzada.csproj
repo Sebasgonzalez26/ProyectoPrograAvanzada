@@ -129,6 +129,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CatalogoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -153,10 +154,16 @@
     <Compile Include="EF\tbCategoria.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\tbClientes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\tbPerfil.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\tbUsuario.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\tbVeterinarios.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ValidarUsuarios_Result.cs">
@@ -165,6 +172,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Catalogo.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -199,6 +207,7 @@
     <Content Include="Static\icons\team-2.jpg" />
     <Content Include="Static\js\ActualizarCatalogo.js" />
     <Content Include="Static\js\AgregarCatalogo.js" />
+    <Content Include="Static\js\AgregarCliente.js" />
     <Content Include="Static\js\bootstrap.min.js" />
     <Content Include="Static\js\Iniciar.js" />
     <Content Include="Static\js\material-dashboard.min.js" />
@@ -207,6 +216,7 @@
     <Content Include="Static\js\Registro.js" />
     <Content Include="Static\js\smooth-scrollbar.min.js" />
     <Content Include="Static\js\VerCatalogo.js" />
+    <Content Include="Static\js\VerClientes.js" />
     <Content Include="Static\js\VerPerfil.js" />
     <Content Include="Templates\templateRecuperacion.html" />
     <Content Include="Web.config" />
@@ -246,6 +256,9 @@
     <Content Include="Views\Usuario\CambiarAcceso.cshtml" />
     <Content Include="Views\Catalogo\AgregarCatalogo.cshtml" />
     <Content Include="Views\Catalogo\ActualizarCatalogo.cshtml" />
+    <Content Include="Views\Cliente\VerClientes.cshtml" />
+    <Content Include="Views\Cliente\AgregarCliente.cshtml" />
+    <Content Include="Views\Cliente\ActualizarCliente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

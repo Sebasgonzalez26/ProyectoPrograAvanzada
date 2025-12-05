@@ -1,0 +1,92 @@
+﻿@model List<KN_Proyecto_progra_avanzada.Models.Cliente>
+
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-dark fw-bold">Gestión de Clientes</h3>
+
+        <a href="@Url.Action("AgregarCliente", "Cliente")" class="btn btn-success shadow-sm">
+            <i class="material-symbols-rounded align-middle">person_add</i> Agregar cliente
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="tClientes" class="table align-middle mb-0 table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nombre completo</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Estado</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @item.Nombre @item.Apellidos
+                                    </td>
+
+                                    <td class="text-muted">
+                                        @item.Correo
+                                    </td>
+
+                                    <td>
+                                        @item.Telefono
+                                    </td>
+
+                                    <td>
+                                        @if (item.Estado)
+                                        {
+                                            <span class="badge bg-gradient-success">Activo</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-gradient-secondary">Inactivo</span>
+                                        }
+                                    </td>
+
+                                    <td class="text-center">
+                                        <a href="@Url.Action("ActualizarCliente", "Cliente", new { q = item.IdCliente })"
+                                           class="btn btn-sm btn-primary shadow-sm me-2">
+                                            <i class="material-symbols-rounded align-middle">edit</i>
+                                        </a>
+
+                                        <div class="form-check form-switch d-inline-block">
+                                            <input class="form-check-input"
+                                                   type="checkbox"
+                                                   @(item.Estado ? "checked" : "")
+                                                   onclick="location.href='@Url.Action("CambiarEstadoCliente", "Cliente", new { id = item.IdCliente })'">
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="8" class="text-center text-muted py-4">
+                                    <i class="material-symbols-rounded mb-2" style="font-size:40px;">group_off</i><br />
+                                    No hay clientes registrados actualmente.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+    <script src="~/Static/js/VerClientes.js"></script>
+}

@@ -11,6 +11,8 @@
         <EntityTypeShape EntityType="BDProyecto_KNModel.tbCatalogo" Width="1.5" PointX="3" PointY="5" />
         <EntityTypeShape EntityType="BDProyecto_KNModel.tbCategoria" Width="1.5" PointX="0.75" PointY="5.5" />
         <AssociationConnector Association="BDProyecto_KNModel.FK_tbCatalogo_tbCategoria" />
+        <EntityTypeShape EntityType="BDProyecto_KNModel.tbClientes" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BDProyecto_KNModel.tbVeterinarios" Width="1.5" PointX="5.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

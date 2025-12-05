@@ -86,7 +86,7 @@ namespace KN_Proyecto_progra_avanzada.Controllers
             }
 
             CargarCategorias();
-            ViewBag.Mensake = "La informacion no se pudo regisrar";
+            ViewBag.Mensaje = "La informacion no se pudo regisrar";
             return View();
 
 
@@ -106,7 +106,6 @@ namespace KN_Proyecto_progra_avanzada.Controllers
         {
             using (var context = new BDProyecto_KNEntities())
             {
-                // 🔹 Mandamos el modelo con los datos a actualizar
 
 
                 //Tomar el objeto de la BD
