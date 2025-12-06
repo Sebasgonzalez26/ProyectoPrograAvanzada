@@ -14,6 +14,12 @@ namespace KN_Proyecto_progra_avanzada.EF
     
     public partial class tbClientes
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbClientes()
+        {
+            this.tbMascotas = new HashSet<tbMascotas>();
+        }
+    
         public int IdCliente { get; set; }
         public string Nombre { get; set; }
         public string Apellidos { get; set; }
@@ -21,5 +27,8 @@ namespace KN_Proyecto_progra_avanzada.EF
         public string Telefono { get; set; }
         public Nullable<System.DateTime> FechaRegistro { get; set; }
         public bool Estado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbMascotas> tbMascotas { get; set; }
     }
 }

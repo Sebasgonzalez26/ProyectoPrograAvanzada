@@ -1,0 +1,135 @@
+﻿@model KN_Proyecto_progra_avanzada.Models.Mascota
+
+@{
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+<!-- SOLO DISEÑO PARA ESTE FORM -->
+<style>
+    .mascota-form .form-label {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        color: #444;
+    }
+
+    .mascota-form .form-control,
+    .mascota-form .form-select {
+        border: 1px solid #d0d0d0 !important;
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        background-color: #ffffff;
+        box-shadow: none !important;
+        min-height: 42px;
+    }
+
+    .mascota-form textarea.form-control {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .mascota-form small.form-text {
+        font-size: 0.8rem;
+    }
+</style>
+
+<div class="container-fluid py-4">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header pb-0 bg-transparent">
+                    <h4 class="font-weight-bolder mb-1">Actualizar mascota</h4>
+                    <p class="text-sm text-muted mb-0">
+                        Modifica la información de la mascota seleccionada.
+                    </p>
+                </div>
+
+                <div class="card-body pt-3 mascota-form">
+                    @using (Html.BeginForm("ActualizarMascota", "Mascota", FormMethod.Post, new { @id = "FormActualizarMascota" }))
+                    {
+                        @Html.HiddenFor(x => x.IdMascota)
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label for="Nombre" class="form-label">Nombre</label>
+                            @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.Nombre, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="row">
+                            <!-- Especie -->
+                            <div class="col-md-6 mb-3">
+                                <label for="Especie" class="form-label">Especie</label>
+                                @Html.TextBoxFor(
+                                    x => x.Especie,
+                                    new { @class = "form-control" }
+                                )
+                                @Html.ValidationMessageFor(x => x.Especie, "", new { @class = "text-danger" })
+                            </div>
+
+                            <!-- Raza -->
+                            <div class="col-md-6 mb-3">
+                                <label for="Raza" class="form-label">Raza</label>
+                                @Html.TextBoxFor(
+                                    x => x.Raza,
+                                    new { @class = "form-control" }
+                                )
+                                @Html.ValidationMessageFor(x => x.Raza, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Sexo -->
+                            <div class="col-md-6 mb-3">
+                                <label for="Sexo" class="form-label">Sexo</label>
+                                @Html.TextBoxFor(
+                                    x => x.Sexo,
+                                    new { @class = "form-control" }
+                                )
+                                @Html.ValidationMessageFor(x => x.Sexo, "", new { @class = "text-danger" })
+                            </div>
+
+                            <!-- FechaNacimiento -->
+                            <div class="col-md-6 mb-3">
+                                <label for="FechaNacimiento" class="form-label">Fecha de nacimiento</label>
+                                @Html.TextBoxFor(
+                                    x => x.FechaNacimiento,
+                                    new { @class = "form-control", type = "date" }
+                                )
+                                @Html.ValidationMessageFor(x => x.FechaNacimiento, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Cliente (dueño) -->
+                        <div class="mb-4">
+                            <label for="IdCliente" class="form-label">Cliente (dueño)</label>
+                            @Html.DropDownListFor(
+                                x => x.IdCliente,
+                                (IEnumerable<SelectListItem>)ViewBag.Clientes,
+                                "--Seleccione un cliente--",
+                                new { @class = "form-select" }
+                            )
+                            @Html.ValidationMessageFor(x => x.IdCliente, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn bg-gradient-success w-100 mb-0">
+                                Guardar cambios
+                            </button>
+                        </div>
+
+                    }
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+    <script src="~/Static/js/ActualizarMascota.js"></script>
+}
