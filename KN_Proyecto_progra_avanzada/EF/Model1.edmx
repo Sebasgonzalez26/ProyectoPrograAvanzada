@@ -82,7 +82,7 @@
           <Property Name="Apellidos" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="Correo" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="Telefono" Type="varchar" MaxLength="20" />
-          <Property Name="Estado" Type="bit" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
           <Property Name="FechaRegistro" Type="datetime" />
         </EntityType>
         <Association Name="FK_Mascota_Cliente">
@@ -288,7 +288,7 @@
           <Property Name="Apellidos" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="Correo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Estado" Type="Boolean" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tbMascotas">

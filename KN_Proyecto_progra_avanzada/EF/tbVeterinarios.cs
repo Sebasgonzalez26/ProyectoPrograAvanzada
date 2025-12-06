@@ -19,7 +19,7 @@ namespace KN_Proyecto_progra_avanzada.EF
         public string Apellidos { get; set; }
         public string Correo { get; set; }
         public string Telefono { get; set; }
-        public Nullable<bool> Estado { get; set; }
+        public bool Estado { get; set; }
         public Nullable<System.DateTime> FechaRegistro { get; set; }
     }
 }

@@ -134,6 +134,7 @@
     <Compile Include="Controllers\CatalogoController.cs" />
     <Compile Include="Controllers\MascotaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\VeterinarioController.cs" />
     <Compile Include="EF\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -176,6 +177,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Veterinario.cs" />
     <Compile Include="Models\Mascota.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Catalogo.cs" />
@@ -225,6 +227,7 @@
     <Content Include="Static\js\VerClientes.js" />
     <Content Include="Static\js\VerMascotas.js" />
     <Content Include="Static\js\VerPerfil.js" />
+    <Content Include="Static\js\VerVeterinarios.js" />
     <Content Include="Templates\templateRecuperacion.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -268,6 +271,9 @@
     <Content Include="Views\Mascota\VerMascotas.cshtml" />
     <Content Include="Views\Mascota\AgregarMascota.cshtml" />
     <Content Include="Views\Mascota\ActualizarMascota.cshtml" />
+    <Content Include="Views\Veterinario\VerVeterinarios.cshtml" />
+    <Content Include="Views\Veterinario\AgregarVeterinario.cshtml" />
+    <Content Include="Views\Veterinario\ActualizarVeterinario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
