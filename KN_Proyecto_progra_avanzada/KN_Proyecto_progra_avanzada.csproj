@@ -132,6 +132,7 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CatalogoController.cs" />
+    <Compile Include="Controllers\InventarioController.cs" />
     <Compile Include="Controllers\MascotaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\VeterinarioController.cs" />
@@ -159,6 +160,9 @@
     <Compile Include="EF\tbClientes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\tbInventario.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\tbMascotas.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -177,6 +181,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Inventario.cs" />
     <Compile Include="Models\Veterinario.cs" />
     <Compile Include="Models\Mascota.cs" />
     <Compile Include="Models\Cliente.cs" />
@@ -216,6 +221,7 @@
     <Content Include="Static\js\ActualizarMascota.js" />
     <Content Include="Static\js\AgregarCatalogo.js" />
     <Content Include="Static\js\AgregarCliente.js" />
+    <Content Include="Static\js\AgregarInventario.js" />
     <Content Include="Static\js\bootstrap.min.js" />
     <Content Include="Static\js\Iniciar.js" />
     <Content Include="Static\js\material-dashboard.min.js" />
@@ -225,6 +231,7 @@
     <Content Include="Static\js\smooth-scrollbar.min.js" />
     <Content Include="Static\js\VerCatalogo.js" />
     <Content Include="Static\js\VerClientes.js" />
+    <Content Include="Static\js\VerInventario.js" />
     <Content Include="Static\js\VerMascotas.js" />
     <Content Include="Static\js\VerPerfil.js" />
     <Content Include="Static\js\VerVeterinarios.js" />
@@ -246,6 +253,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="imgCatalogos\" />
+    <Folder Include="imgInventarios\" />
     <Folder Include="Static\imagenes\" />
   </ItemGroup>
   <ItemGroup>
@@ -274,6 +282,9 @@
     <Content Include="Views\Veterinario\VerVeterinarios.cshtml" />
     <Content Include="Views\Veterinario\AgregarVeterinario.cshtml" />
     <Content Include="Views\Veterinario\ActualizarVeterinario.cshtml" />
+    <Content Include="Views\Inventario\VerInventario.cshtml" />
+    <Content Include="Views\Inventario\AgregarInventario.cshtml" />
+    <Content Include="Views\Inventario\ActualizarInventario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

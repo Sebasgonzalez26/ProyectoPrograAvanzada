@@ -29,10 +29,6 @@
                 <div class="card-body pt-3">
                     @using (Html.BeginForm("CambiarAcceso", "Usuario", FormMethod.Post))
                     {
-                        @Html.HiddenFor(x => x.IdUsuario)
-
-                      
-
                         <!-- Contraseña Actual -->
                         <div class="input-group input-group-outline mb-3">
                             <label class="form-label">Contraseña actual</label>
@@ -45,7 +41,6 @@
                             <input type="password" name="NuevaContrasena" class="form-control" required />
                         </div>
 
-                      
                         <div class="text-center">
                             <button type="submit" class="btn bg-gradient-primary w-100">
                                 Guardar cambios

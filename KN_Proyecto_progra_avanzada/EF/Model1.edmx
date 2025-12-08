@@ -40,6 +40,21 @@
           <Property Name="FechaRegistro" Type="datetime" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="tbInventario">
+          <Key>
+            <PropertyRef Name="IdInventario" />
+          </Key>
+          <Property Name="IdInventario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="400" />
+          <Property Name="Categoria" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Stock" Type="int" Nullable="false" />
+          <Property Name="PrecioVenta" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Unidad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Imagen" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FechaIngreso" Type="datetime" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="tbMascotas">
           <Key>
             <PropertyRef Name="IdMascota" />
@@ -135,6 +150,7 @@
           <EntitySet Name="tbCatalogo" EntityType="Self.tbCatalogo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbCategoria" EntityType="Self.tbCategoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbClientes" EntityType="Self.tbClientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbInventario" EntityType="Self.tbInventario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbMascotas" EntityType="Self.tbMascotas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbPerfil" EntityType="Self.tbPerfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbUsuario" EntityType="Self.tbUsuario" Schema="dbo" store:Type="Tables" />
@@ -219,6 +235,7 @@
             <End Role="tbClientes" EntitySet="tbClientes" />
             <End Role="tbMascotas" EntitySet="tbMascotas" />
           </AssociationSet>
+          <EntitySet Name="tbInventario" EntityType="BDProyecto_KNModel.tbInventario" />
         </EntityContainer>
         <ComplexType Name="ValidarUsuarios_Result">
           <Property Type="Int32" Name="IdUsuario" Nullable="false" />
@@ -318,6 +335,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbInventario">
+          <Key>
+            <PropertyRef Name="IdInventario" />
+          </Key>
+          <Property Name="IdInventario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Categoria" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Stock" Type="Int32" Nullable="false" />
+          <Property Name="PrecioVenta" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Unidad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Imagen" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -422,6 +454,22 @@
                 <ScalarProperty Name="Especie" ColumnName="Especie" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IdMascota" ColumnName="IdMascota" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbInventario">
+            <EntityTypeMapping TypeName="BDProyecto_KNModel.tbInventario">
+              <MappingFragment StoreEntitySet="tbInventario">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+                <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdInventario" ColumnName="IdInventario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

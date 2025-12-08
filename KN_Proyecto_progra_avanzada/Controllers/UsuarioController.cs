@@ -81,25 +81,78 @@ namespace KN_Proyecto_progra_avanzada.Controllers
 
 
 
-
         [HttpGet]
-
         public ActionResult CambiarAcceso()
         {
+            ViewBag.Mensaje = TempData["Mensaje"];
+            ViewBag.TipoMensaje = TempData["TipoMensaje"];
 
             return View();
-
         }
 
 
         [HttpPost]
-
-        public ActionResult CambiarAcceso(Usuario usuario)
+        public ActionResult CambiarAcceso(string ContrasenaActual, string NuevaContrasena)
         {
+            if (string.IsNullOrWhiteSpace(ContrasenaActual) || string.IsNullOrWhiteSpace(NuevaContrasena))
+            {
+                TempData["Mensaje"] = "Debe completar ambos campos de contraseña.";
+                TempData["TipoMensaje"] = "danger";
+                return RedirectToAction("CambiarAcceso");
+            }
 
-            return View();
+            try
+            {
+                using (var context = new BDProyecto_KNEntities())
+                {
+                    // 1. Obtener el usuario en sesión
+                    var idUsuario = int.Parse(Session["IdUsuario"].ToString());
 
+                    var usuarioBD = context.tbUsuario
+                                           .FirstOrDefault(u => u.IdUsuario == idUsuario);
+
+                    if (usuarioBD == null)
+                    {
+                        TempData["Mensaje"] = "No se encontró el usuario.";
+                        TempData["TipoMensaje"] = "danger";
+                        return RedirectToAction("CambiarAcceso");
+                    }
+
+                    // 2. Validar que la contraseña actual coincida (TEXTO PLANO)
+                    if (usuarioBD.Contrasenna != ContrasenaActual)
+                    {
+                        TempData["Mensaje"] = "La contraseña actual es incorrecta.";
+                        TempData["TipoMensaje"] = "danger";
+                        return RedirectToAction("CambiarAcceso");
+                    }
+
+                    // 3. Guardar la nueva contraseña (TEXTO PLANO)
+                    usuarioBD.Contrasenna = NuevaContrasena;
+
+                    var filas = context.SaveChanges();
+
+                    if (filas > 0)
+                    {
+                        TempData["Mensaje"] = "La contraseña se actualizó correctamente.";
+                        TempData["TipoMensaje"] = "success";
+                    }
+                    else
+                    {
+                        TempData["Mensaje"] = "No se pudo actualizar la contraseña.";
+                        TempData["TipoMensaje"] = "danger";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = "Ocurrió un error al actualizar la contraseña: " + ex.Message;
+                TempData["TipoMensaje"] = "danger";
+            }
+
+            return RedirectToAction("CambiarAcceso");
         }
+
+
 
     }
 }
