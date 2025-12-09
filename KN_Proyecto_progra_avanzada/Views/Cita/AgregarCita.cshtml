@@ -1,0 +1,148 @@
+﻿@model KN_Proyecto_progra_avanzada.Models.Cita
+
+@{
+    ViewBag.Title = "Registrar nueva cita";
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+<div class="container-fluid py-4">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+
+            <!-- ENCABEZADO -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <h4 class="fw-bold mb-1">Registrar nueva cita</h4>
+                    <p class="text-muted mb-0">
+                        Asigne una cita a una mascota y seleccione el veterinario correspondiente.
+                    </p>
+                </div>
+
+                <a href="@Url.Action("VerCitas", "Cita")" class="btn btn-outline-secondary btn-sm">
+                    <i class="material-symbols-rounded align-middle me-1">arrow_back</i>
+                    Volver a agenda
+                </a>
+            </div>
+
+            <!-- CARD FORM -->
+            <div class="card shadow-sm border-0">
+                <div class="card-body cita-form">
+
+                    @* Mensaje opcional *@
+                    @if (ViewBag.Mensaje != null)
+                    {
+                        <div class="alert alert-info mb-3">@ViewBag.Mensaje</div>
+                    }
+
+                    @using (Html.BeginForm("AgregarCita", "Cita", FormMethod.Post, new { id = "FormAgregarCita" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger mb-2" })
+
+                        <div class="row">
+                            <!-- Mascota -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Mascota</label>
+                                @Html.DropDownListFor(
+                                    x => x.IdMascota,
+                                    (IEnumerable<SelectListItem>)ViewBag.Mascotas,
+                                    "-- Seleccione una mascota --",
+                                    new { @class = "form-select" }
+                                )
+                                @Html.ValidationMessageFor(x => x.IdMascota, "", new { @class = "text-danger" })
+                            </div>
+
+                            <!-- Veterinario -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Veterinario</label>
+                                @Html.DropDownListFor(
+                                    x => x.IdVeterinario,
+                                    (IEnumerable<SelectListItem>)ViewBag.Veterinarios,
+                                    "-- Seleccione un veterinario --",
+                                    new { @class = "form-select" }
+                                )
+                                @Html.ValidationMessageFor(x => x.IdVeterinario, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Fecha y hora -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Fecha y hora de la cita</label>
+                                @Html.TextBoxFor(
+                                    x => x.FechaCita,
+                                    new
+                                    {
+                                        @class = "form-control",
+                                        type = "datetime-local",
+                                        // Para que no truene si FechaCita viene null / default
+                                        value = Model.FechaCita == DateTime.MinValue
+                                            ? ""
+                                            : Model.FechaCita.ToString("yyyy-MM-ddTHH:mm")
+                                    }
+                                )
+                                @Html.ValidationMessageFor(x => x.FechaCita, "", new { @class = "text-danger" })
+                            </div>
+
+                            <!-- Motivo -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Motivo de la cita</label>
+                                @Html.TextBoxFor(
+                                    x => x.Motivo,
+                                    new { @class = "form-control", placeholder = "Chequeo general, vacunación, control, etc." }
+                                )
+                                @Html.ValidationMessageFor(x => x.Motivo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Observaciones -->
+                        <div class="mb-3">
+                            <label class="form-label">Observaciones (opcional)</label>
+                            @Html.TextAreaFor(
+                                x => x.Observaciones,
+                                new { @class = "form-control", rows = "3", placeholder = "Notas adicionales para el veterinario..." }
+                            )
+                            @Html.ValidationMessageFor(x => x.Observaciones, "", new { @class = "text-danger" })
+                        </div>
+
+                        @* Estado por defecto: Programada (si no lo escogés en el formulario) *@
+                        @Html.HiddenFor(x => x.Estado, new { Value = "Programada" })
+
+                        <div class="d-flex justify-content-end mt-3">
+                            <a href="@Url.Action("VerCitas", "Cita")" class="btn btn-outline-secondary me-2">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn bg-gradient-success">
+                                <i class="material-symbols-rounded align-middle me-1">event_available</i>
+                                Guardar cita
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .cita-form .form-label {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        color: #444;
+    }
+
+    .cita-form .form-control,
+    .cita-form .form-select {
+        border-radius: 0.5rem;
+        border: 1px solid #d0d0d0;
+        box-shadow: none !important;
+        min-height: 42px;
+    }
+
+    .cita-form textarea.form-control {
+        min-height: 90px;
+        resize: vertical;
+    }
+</style>

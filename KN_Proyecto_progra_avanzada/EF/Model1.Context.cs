@@ -35,6 +35,7 @@ namespace KN_Proyecto_progra_avanzada.EF
         public virtual DbSet<tbVeterinarios> tbVeterinarios { get; set; }
         public virtual DbSet<tbMascotas> tbMascotas { get; set; }
         public virtual DbSet<tbInventario> tbInventario { get; set; }
+        public virtual DbSet<tbCitas> tbCitas { get; set; }
     
         public virtual int CrearUsuarios(string identificacion, string nombre, string correoElectronico, string contrasenna)
         {

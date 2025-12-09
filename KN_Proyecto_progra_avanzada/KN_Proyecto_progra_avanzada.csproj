@@ -129,6 +129,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CitaController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CatalogoController.cs" />
@@ -157,6 +158,9 @@
     <Compile Include="EF\tbCategoria.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\tbCitas.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\tbClientes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -181,6 +185,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cita.cs" />
     <Compile Include="Models\Inventario.cs" />
     <Compile Include="Models\Veterinario.cs" />
     <Compile Include="Models\Mascota.cs" />
@@ -285,6 +290,9 @@
     <Content Include="Views\Inventario\VerInventario.cshtml" />
     <Content Include="Views\Inventario\AgregarInventario.cshtml" />
     <Content Include="Views\Inventario\ActualizarInventario.cshtml" />
+    <Content Include="Views\Cita\VerCitas.cshtml" />
+    <Content Include="Views\Cita\AgregarCita.cshtml" />
+    <Content Include="Views\Cita\ActualizarCita.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -14,6 +14,12 @@ namespace KN_Proyecto_progra_avanzada.EF
     
     public partial class tbMascotas
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbMascotas()
+        {
+            this.tbCitas = new HashSet<tbCitas>();
+        }
+    
         public int IdMascota { get; set; }
         public string Nombre { get; set; }
         public string Especie { get; set; }
@@ -25,5 +31,7 @@ namespace KN_Proyecto_progra_avanzada.EF
         public bool Estado { get; set; }
     
         public virtual tbClientes tbClientes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbCitas> tbCitas { get; set; }
     }
 }

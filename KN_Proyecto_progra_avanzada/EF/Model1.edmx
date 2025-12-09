@@ -28,6 +28,19 @@
           <Property Name="Descripcion" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="tbCitas">
+          <Key>
+            <PropertyRef Name="IdCita" />
+          </Key>
+          <Property Name="IdCita" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMascota" Type="int" Nullable="false" />
+          <Property Name="IdVeterinario" Type="int" Nullable="false" />
+          <Property Name="FechaCita" Type="datetime" Nullable="false" />
+          <Property Name="Motivo" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="500" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="tbClientes">
           <Key>
             <PropertyRef Name="IdCliente" />
@@ -124,6 +137,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbCitas_tbMascotas">
+          <End Role="tbMascotas" Type="Self.tbMascotas" Multiplicity="1" />
+          <End Role="tbCitas" Type="Self.tbCitas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMascotas">
+              <PropertyRef Name="IdMascota" />
+            </Principal>
+            <Dependent Role="tbCitas">
+              <PropertyRef Name="IdMascota" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCitas_tbVeterinarios">
+          <End Role="tbVeterinarios" Type="Self.tbVeterinarios" Multiplicity="1" />
+          <End Role="tbCitas" Type="Self.tbCitas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbVeterinarios">
+              <PropertyRef Name="IdVeterinario" />
+            </Principal>
+            <Dependent Role="tbCitas">
+              <PropertyRef Name="IdVeterinario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbUsuario_tbPerfil">
           <End Role="tbPerfil" Type="Self.tbPerfil" Multiplicity="1" />
           <End Role="tbUsuario" Type="Self.tbUsuario" Multiplicity="*" />
@@ -149,6 +186,7 @@
         <EntityContainer Name="BDProyecto_KNModelStoreContainer">
           <EntitySet Name="tbCatalogo" EntityType="Self.tbCatalogo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbCategoria" EntityType="Self.tbCategoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbCitas" EntityType="Self.tbCitas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbClientes" EntityType="Self.tbClientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbInventario" EntityType="Self.tbInventario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbMascotas" EntityType="Self.tbMascotas" Schema="dbo" store:Type="Tables" />
@@ -162,6 +200,14 @@
           <AssociationSet Name="FK_tbCatalogo_tbCategoria" Association="Self.FK_tbCatalogo_tbCategoria">
             <End Role="tbCategoria" EntitySet="tbCategoria" />
             <End Role="tbCatalogo" EntitySet="tbCatalogo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCitas_tbMascotas" Association="Self.FK_tbCitas_tbMascotas">
+            <End Role="tbMascotas" EntitySet="tbMascotas" />
+            <End Role="tbCitas" EntitySet="tbCitas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCitas_tbVeterinarios" Association="Self.FK_tbCitas_tbVeterinarios">
+            <End Role="tbVeterinarios" EntitySet="tbVeterinarios" />
+            <End Role="tbCitas" EntitySet="tbCitas" />
           </AssociationSet>
           <AssociationSet Name="FK_tbUsuario_tbPerfil" Association="Self.FK_tbUsuario_tbPerfil">
             <End Role="tbPerfil" EntitySet="tbPerfil" />
@@ -236,6 +282,15 @@
             <End Role="tbMascotas" EntitySet="tbMascotas" />
           </AssociationSet>
           <EntitySet Name="tbInventario" EntityType="BDProyecto_KNModel.tbInventario" />
+          <EntitySet Name="tbCitas" EntityType="BDProyecto_KNModel.tbCitas" />
+          <AssociationSet Name="FK_tbCitas_tbMascotas" Association="BDProyecto_KNModel.FK_tbCitas_tbMascotas">
+            <End Role="tbMascotas" EntitySet="tbMascotas" />
+            <End Role="tbCitas" EntitySet="tbCitas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCitas_tbVeterinarios" Association="BDProyecto_KNModel.FK_tbCitas_tbVeterinarios">
+            <End Role="tbVeterinarios" EntitySet="tbVeterinarios" />
+            <End Role="tbCitas" EntitySet="tbCitas" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="ValidarUsuarios_Result">
           <Property Type="Int32" Name="IdUsuario" Nullable="false" />
@@ -307,6 +362,7 @@
           <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbCitas" Relationship="BDProyecto_KNModel.FK_tbCitas_tbVeterinarios" FromRole="tbVeterinarios" ToRole="tbCitas" />
         </EntityType>
         <EntityType Name="tbMascotas">
           <Key>
@@ -322,6 +378,7 @@
           <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="tbClientes" Relationship="BDProyecto_KNModel.FK_Mascota_Cliente" FromRole="tbMascotas" ToRole="tbClientes" />
+          <NavigationProperty Name="tbCitas" Relationship="BDProyecto_KNModel.FK_tbCitas_tbMascotas" FromRole="tbMascotas" ToRole="tbCitas" />
         </EntityType>
         <Association Name="FK_Mascota_Cliente">
           <End Type="BDProyecto_KNModel.tbClientes" Role="tbClientes" Multiplicity="1" />
@@ -350,6 +407,45 @@
           <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="tbCitas">
+          <Key>
+            <PropertyRef Name="IdCita" />
+          </Key>
+          <Property Name="IdCita" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMascota" Type="Int32" Nullable="false" />
+          <Property Name="IdVeterinario" Type="Int32" Nullable="false" />
+          <Property Name="FechaCita" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Motivo" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tbMascotas" Relationship="BDProyecto_KNModel.FK_tbCitas_tbMascotas" FromRole="tbCitas" ToRole="tbMascotas" />
+          <NavigationProperty Name="tbVeterinarios" Relationship="BDProyecto_KNModel.FK_tbCitas_tbVeterinarios" FromRole="tbCitas" ToRole="tbVeterinarios" />
+        </EntityType>
+        <Association Name="FK_tbCitas_tbMascotas">
+          <End Type="BDProyecto_KNModel.tbMascotas" Role="tbMascotas" Multiplicity="1" />
+          <End Type="BDProyecto_KNModel.tbCitas" Role="tbCitas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMascotas">
+              <PropertyRef Name="IdMascota" />
+            </Principal>
+            <Dependent Role="tbCitas">
+              <PropertyRef Name="IdMascota" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCitas_tbVeterinarios">
+          <End Type="BDProyecto_KNModel.tbVeterinarios" Role="tbVeterinarios" Multiplicity="1" />
+          <End Type="BDProyecto_KNModel.tbCitas" Role="tbCitas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbVeterinarios">
+              <PropertyRef Name="IdVeterinario" />
+            </Principal>
+            <Dependent Role="tbCitas">
+              <PropertyRef Name="IdVeterinario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -470,6 +566,20 @@
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IdInventario" ColumnName="IdInventario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbCitas">
+            <EntityTypeMapping TypeName="BDProyecto_KNModel.tbCitas">
+              <MappingFragment StoreEntitySet="tbCitas">
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="FechaCita" ColumnName="FechaCita" />
+                <ScalarProperty Name="IdVeterinario" ColumnName="IdVeterinario" />
+                <ScalarProperty Name="IdMascota" ColumnName="IdMascota" />
+                <ScalarProperty Name="IdCita" ColumnName="IdCita" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
