@@ -155,7 +155,38 @@ namespace KN_Proyecto_progra_avanzada.Controllers
             return View(cita);
         }
 
+        [HttpGet]
 
+        public ActionResult CambiarEstadoCita(int q)
+        {
+
+
+            using(var context = new BDProyecto_KNEntities())
+            {
+                var resultadoConsulta = context.tbCitas.Where(x => x.IdCita == q).FirstOrDefault();
+
+
+
+                if(resultadoConsulta != null)
+                {
+                    resultadoConsulta.Estado =
+                                   resultadoConsulta.Estado == "Cancelada"
+                                   ? "Programada"
+                                   : "Cancelada";
+
+                    var resultadoActualizacion = context.SaveChanges();
+
+
+                    if (resultadoActualizacion > 0)
+                        return RedirectToAction("VerCitas", "Cita");
+                }
+
+                var resultado = ConsultarCita();
+                ViewBag.Mensaje = "El estado no se puede actualizar, intente de nuevo";
+                return View("VerCitas", resultado);
+            }
+
+        }
 
 
 

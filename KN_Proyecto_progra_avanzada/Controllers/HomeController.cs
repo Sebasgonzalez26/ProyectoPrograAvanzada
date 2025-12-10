@@ -3,6 +3,7 @@ using KN_Proyecto_progra_avanzada.Models;
 using KN_Proyecto_progra_avanzada.Services;
 using System;
 using System.Configuration;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -150,13 +151,47 @@ namespace KN_Proyecto_progra_avanzada.Controllers
 
         // ----------------- PRINCIPAL -----------------
 
-
         [Seguridad]
         [HttpGet]
         public ActionResult Principal()
         {
             using (var context = new BDProyecto_KNEntities())
             {
+                var hoy = DateTime.Today;
+                var ahora = DateTime.Now;
+
+                // 🔹 1) Citas de HOY (solo para el KPI)
+                var citasHoyDb = context.tbCitas
+                    .Where(c => DbFunctions.TruncateTime(c.FechaCita) == hoy)
+                    .ToList();
+
+                ViewBag.CitasHoy = citasHoyDb.Count;
+
+                // 🔹 2) Próximas citas (desde ahora hacia adelante, máximo 3)
+                var proximasCitasDb = context.tbCitas
+                    .Include(c => c.tbMascotas)
+                    .Include(c => c.tbMascotas.tbClientes)
+                    .Where(c => c.FechaCita >= ahora)            // 👈 ya no solo hoy, sino futuras
+                    .OrderBy(c => c.FechaCita)
+                    .Take(3)
+                    .ToList();
+
+                var proximasCitas = proximasCitasDb
+                    .Select(c => new Cita
+                    {
+                        IdCita = c.IdCita,
+                        FechaCita = c.FechaCita,
+                        Motivo = c.Motivo,
+                        Estado = c.Estado,
+                        NombreMascota = c.tbMascotas.Nombre,
+                        NombreCliente = c.tbMascotas.tbClientes.Nombre + " " +
+                                        c.tbMascotas.tbClientes.Apellidos
+                    })
+                    .ToList();
+
+                ViewBag.ProximasCitas = proximasCitas;
+
+                // 🔹 3) Productos para el módulo de tienda
                 var productosTienda = context.tbCatalogo
                     .Where(p => p.Estado == true || p.Estado == null)
                     .OrderByDescending(p => p.FechaRegistro)
@@ -168,6 +203,8 @@ namespace KN_Proyecto_progra_avanzada.Controllers
 
             return View();
         }
+
+
 
         [Seguridad]
         [HttpGet]

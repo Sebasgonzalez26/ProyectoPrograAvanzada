@@ -15,7 +15,7 @@
                     </p>
                 </div>
                 <div class="d-flex gap-3 align-items-center mt-3 mt-md-0">
-                    <a href="#" class="btn btn-light text-dark btn-sm">Registrar cita</a>
+                    <a href="@Url.Action("AgregarCita", "Cita")" class="btn btn-light text-dark btn-sm">Registrar cita</a>
                     <a href="@Url.Action("AgregarMascota", "Mascota")" class="btn btn-outline-light btn-sm">Agregar mascota</a>
                 </div>
             </div>
@@ -33,12 +33,13 @@
                 </div>
                 <div class="kpi-text">
                     <p class="text-sm text-secondary mb-0">Citas de hoy</p>
-                    <h5 class="mb-0">8</h5>
-                    <span class="text-xs text-success">+2 vs ayer</span>
+                    <h5 class="mb-0">@((int)(ViewBag.CitasHoy ?? 0))</h5>
+                    <span class="text-xs text-secondary">registradas para hoy</span>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="col-md-3 col-sm-6 mb-4">
         <div class="card h-100 kpi-card">
             <div class="card-body">
@@ -53,6 +54,7 @@
             </div>
         </div>
     </div>
+
     <div class="col-md-3 col-sm-6 mb-4">
         <div class="card h-100 kpi-card">
             <div class="card-body">
@@ -67,6 +69,7 @@
             </div>
         </div>
     </div>
+
     <div class="col-md-3 col-sm-6 mb-4">
         <div class="card h-100 kpi-card">
             <div class="card-body">
@@ -83,7 +86,6 @@
     </div>
 </div>
 
-<!-- lo demás de la página que ya te había mandado (citas, alertas, tienda, banner) -->
 <!-- CONTENIDO PRINCIPAL: CITAS + ALERTAS + TIENDA -->
 <div class="row">
     <!-- Próximas citas -->
@@ -91,34 +93,63 @@
         <div class="card h-100">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h6 class="mb-0">Próximas citas</h6>
-                <a href="#" class="text-sm text-primary">Ver calendario</a>
+                <a href="@Url.Action("VerCitas", "Cita")" class="text-sm text-primary">Ver calendario</a>
             </div>
+
             <div class="card-body p-0">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="mb-0">10:00 am - Control general</h6>
-                            <p class="text-xs text-secondary mb-0">Mascota: Luna (canino) · Cliente: Carlos Rojas</p>
-                        </div>
-                        <span class="badge bg-success">Confirmada</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="mb-0">11:30 am - Vacuna</h6>
-                            <p class="text-xs text-secondary mb-0">Mascota: Nala (felino) · Cliente: Marianella</p>
-                        </div>
-                        <span class="badge bg-warning text-dark">Pendiente</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="mb-0">2:00 pm - Emergencia leve</h6>
-                            <p class="text-xs text-secondary mb-0">Mascota: Max (canino) · Cliente: Stephano</p>
-                        </div>
-                        <span class="badge bg-danger">Urgente</span>
-                    </li>
-                    <li class="list-group-item text-center">
-                        <a href="#" class="text-sm text-primary">Ver todas las citas del día</a>
-                    </li>
+                    @{
+                        var proximas = ViewBag.ProximasCitas as IEnumerable<KN_Proyecto_progra_avanzada.Models.Cita>;
+                    }
+
+                    @if (proximas != null && proximas.Any())
+                    {
+                        foreach (var c in proximas)
+                        {
+                            var badgeClass = "bg-secondary";
+                            var badgeText = c.Estado;
+
+                            if (c.Estado == "Programada")
+                            {
+                                badgeClass = "bg-warning text-dark";
+                                badgeText = "Pendiente";
+                            }
+                            else if (c.Estado == "Completada")
+                            {
+                                badgeClass = "bg-success";
+                                badgeText = "Confirmada";
+                            }
+                            else if (c.Estado == "Urgente")
+                            {
+                                badgeClass = "bg-danger";
+                                badgeText = "Urgente";
+                            }
+
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-0">
+                                        @c.FechaCita.ToString("hh:mm tt") - @c.Motivo
+                                    </h6>
+                                    <p class="text-xs text-secondary mb-0">
+                                        Mascota: @c.NombreMascota · Cliente: @c.NombreCliente
+                                    </p>
+                                </div>
+                                <span class="badge @badgeClass">@badgeText</span>
+                            </li>
+                        }
+
+                        <li class="list-group-item text-center">
+                            <a href="@Url.Action("VerCitas", "Cita")" class="text-sm text-primary">
+                                Ver todas las citas del día
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="list-group-item text-center text-muted">
+                            No hay citas programadas para hoy.
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
@@ -153,9 +184,13 @@
                 <a href="@Url.Action("VerCatalogo", "Catalogo")" class="text-sm text-primary">Ver más</a>
             </div>
             <div class="card-body">
-                @if (ViewBag.ProductosTienda != null && ((IEnumerable<KN_Proyecto_progra_avanzada.EF.tbCatalogo>)ViewBag.ProductosTienda).Any())
+                @{
+                    var productos = ViewBag.ProductosTienda as IEnumerable<KN_Proyecto_progra_avanzada.EF.tbCatalogo>;
+                }
+
+                @if (productos != null && productos.Any())
                 {
-                    foreach (var prod in (IEnumerable<KN_Proyecto_progra_avanzada.EF.tbCatalogo>)ViewBag.ProductosTienda)
+                    foreach (var prod in productos)
                     {
                         <div class="d-flex gap-3 mb-3 align-items-center">
                             <div class="flex-shrink-0">
@@ -194,5 +229,3 @@
 
     </div>
 </div>
-
-
