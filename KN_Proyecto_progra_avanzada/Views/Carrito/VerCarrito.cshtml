@@ -123,102 +123,113 @@
                 </a>
             </div>
         </div>
-        return;
     }
-
-    @{
+    else
+    {
         // Total del carrito (Precio * Cantidad)
         decimal total = 0;
         foreach (var item in Model)
         {
             total += (item.Precio * item.Cantidad);
         }
-    }
 
-    <div class="card-soft">
-        <div class="p-3">
-            <div class="pill">
-                <span class="material-symbols-rounded">shopping_cart</span>
-                @Model.Count producto(s) en el carrito
+        <div class="card-soft">
+            <div class="p-3">
+                <div class="pill">
+                    <span class="material-symbols-rounded">shopping_cart</span>
+                    @Model.Count producto(s) en el carrito
+                </div>
             </div>
-        </div>
 
-        <div class="table-responsive">
-            <table class="table mb-0">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th style="width:140px;">Precio</th>
-                        <th style="width:220px;">Cantidad</th>
-                        <th style="width:160px;">Subtotal</th>
-                        <th style="width:120px;"></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        var subtotal = item.Precio * item.Cantidad;
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
                         <tr>
-                            <td>
-                                <div style="font-weight:800;">@item.Nombre</div>
-                                <div style="opacity:.75; font-size:.9rem;">ID Producto: @item.IdProducto</div>
-                            </td>
-
-                            <td>
-                                <b>₡@String.Format("{0:0.00}", item.Precio)</b>
-                            </td>
-
-                            <td>
-                                @* Ajuste de cantidad (POST a ActualizarCantidad) *@
-                                <form method="post" action="@Url.Action("ActualizarCantidad","Carrito")" class="d-flex gap-2 align-items-center">
-                                    <input type="hidden" name="idProducto" value="@item.IdProducto" />
-                                    <input type="number" name="cantidad" class="qty-input" min="0" value="@item.Cantidad" />
-                                    <button class="btn btn-primary btn-round" type="submit">
-                                        <span class="material-symbols-rounded">refresh</span>
-                                        Actualizar
-                                    </button>
-                                </form>
-
-                                <div style="opacity:.65; font-size:.85rem; margin-top:6px;">
-                                    * Cantidad 0 = quitar
-                                </div>
-                            </td>
-
-                            <td>
-                                <b>₡@String.Format("{0:0.00}", subtotal)</b>
-                            </td>
-
-                            <td class="text-end">
-                                <a class="btn btn-danger btn-round"
-                                   href="@Url.Action("EliminarDelCarrito","Carrito", new { idProducto = item.IdProducto })">
-                                    <span class="material-symbols-rounded">delete</span>
-                                    Quitar
-                                </a>
-                            </td>
+                            <th>Producto</th>
+                            <th style="width:140px;">Precio</th>
+                            <th style="width:220px;">Cantidad</th>
+                            <th style="width:160px;">Subtotal</th>
+                            <th style="width:120px;"></th>
                         </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var subtotal = item.Precio * item.Cantidad;
+
+                            <tr>
+                                <td>
+                                    <div style="font-weight:800;">@item.Nombre</div>
+                                    <div style="opacity:.75; font-size:.9rem;">ID Producto: @item.IdProducto</div>
+                                </td>
+
+                                <td>
+                                    <b>₡@String.Format("{0:0.00}", item.Precio)</b>
+                                </td>
+
+                                <td>
+                                    @using (Html.BeginForm("ActualizarCantidad", "Carrito", FormMethod.Post, new { @class = "d-flex gap-2 align-items-center" }))
+                                    {
+                                        @Html.Hidden("idCarrito", item.IdCarrito)
+
+                                        <input type="number"
+                                               name="cantidad"
+                                               value="@item.Cantidad"
+                                               min="0"
+                                               class="form-control"
+                                               style="width:90px;" />
+
+                                        <button type="submit" class="btn btn-danger btn-round">
+                                            <span class="material-symbols-rounded">refresh</span>
+                                            Actualizar
+                                        </button>
+                                    }
+                                    <small class="text-muted">* Cantidad 0 = quitar</small>
+                                </td>
+
+                                <td>
+                                    <b>₡@String.Format("{0:0.00}", subtotal)</b>
+                                </td>
+
+                                <td>
+                                    @using (Html.BeginForm("Quitar", "Carrito", FormMethod.Post))
+                                    {
+                                        @Html.Hidden("idCarrito", item.IdCarrito)
+
+                                        <button type="submit" class="btn btn-sm btn-outline-danger btn-round">
+                                            <span class="material-symbols-rounded">delete</span>
+                                            Quitar
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="total-box">
+                <div>
+                    <div style="opacity:.75;">Total a pagar</div>
+                    <div class="total-amount">₡@String.Format("{0:0.00}", total)</div>
+                </div>
+
+                <div class="d-flex gap-2 flex-wrap">
+                    @using (Html.BeginForm("Vaciar", "Carrito", FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-outline-danger btn-round">
+                            <span class="material-symbols-rounded">remove_shopping_cart</span>
+                            Vaciar
+                        </button>
                     }
-                </tbody>
-            </table>
-        </div>
 
-        <div class="total-box">
-            <div>
-                <div style="opacity:.75;">Total a pagar</div>
-                <div class="total-amount">₡@String.Format("{0:0.00}", total)</div>
-            </div>
-
-            <div class="d-flex gap-2 flex-wrap">
-                <a class="btn btn-outline-danger btn-round" href="@Url.Action("VaciarCarrito","Carrito")">
-                    <span class="material-symbols-rounded">remove_shopping_cart</span>
-                    Vaciar
-                </a>
-
-                <a class="btn btn-success btn-round" href="@Url.Action("Checkout","Factura")">
-                    <span class="material-symbols-rounded">receipt_long</span>
-                    Finalizar compra
-                </a>
+                    <a class="btn btn-success btn-round" href="@Url.Action("Checkout","Carrito")">
+                        <span class="material-symbols-rounded">receipt_long</span>
+                        Finalizar compra
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    }
 </div>
