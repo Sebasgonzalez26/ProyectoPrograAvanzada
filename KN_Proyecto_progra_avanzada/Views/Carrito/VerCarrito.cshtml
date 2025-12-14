@@ -1,0 +1,224 @@
+﻿@model List<KN_Proyecto_progra_avanzada.Models.Carrito>
+
+@{
+    ViewBag.Title = "Mi Carrito";
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+<style>
+    .cart-wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .cart-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .cart-title {
+        font-weight: 800;
+        font-size: 1.8rem;
+        margin: 0;
+    }
+
+    .cart-subtitle {
+        margin: 0;
+        opacity: .75;
+    }
+
+    .card-soft {
+        border: 0;
+        border-radius: 18px;
+        box-shadow: 0 10px 25px rgba(0,0,0,.07);
+        overflow: hidden;
+        background: #fff;
+    }
+
+    .table thead th {
+        border-bottom: 1px solid rgba(0,0,0,.08) !important;
+    }
+
+    .table td, .table th {
+        vertical-align: middle;
+    }
+
+    .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(0,0,0,.04);
+        font-weight: 700;
+    }
+
+    .qty-input {
+        width: 90px;
+        border-radius: 12px;
+        border: 1px solid rgba(0,0,0,.12);
+        padding: 8px 10px;
+    }
+
+    .btn-round {
+        border-radius: 999px;
+        font-weight: 700;
+        padding: 9px 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+    }
+
+    .total-box {
+        border-top: 1px solid rgba(0,0,0,.08);
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .total-amount {
+        font-size: 1.25rem;
+        font-weight: 900;
+    }
+
+    .empty-state {
+        padding: 30px;
+        border-radius: 16px;
+        background: rgba(0,0,0,.03);
+        text-align: center;
+    }
+</style>
+
+<div class="cart-wrap">
+    <div class="cart-header">
+        <div>
+            <h2 class="cart-title">Mi Carrito</h2>
+            <p class="cart-subtitle">Revisá tus productos antes de facturar 🧾</p>
+        </div>
+
+        <div class="d-flex gap-2 flex-wrap">
+            <a class="btn btn-outline-secondary btn-round" href="@Url.Action("VerTienda","Tienda")">
+                <span class="material-symbols-rounded">storefront</span>
+                Seguir comprando
+            </a>
+        </div>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="empty-state">
+            <h5 style="margin-bottom:6px;">Tu carrito está vacío</h5>
+            <p style="margin:0; opacity:.75;">Agregá productos desde la tienda para verlos aquí.</p>
+            <div class="mt-3">
+                <a class="btn btn-success btn-round" href="@Url.Action("VerTienda","Tienda")">
+                    <span class="material-symbols-rounded">shopping_bag</span>
+                    Ir a la tienda
+                </a>
+            </div>
+        </div>
+        return;
+    }
+
+    @{
+        // Total del carrito (Precio * Cantidad)
+        decimal total = 0;
+        foreach (var item in Model)
+        {
+            total += (item.Precio * item.Cantidad);
+        }
+    }
+
+    <div class="card-soft">
+        <div class="p-3">
+            <div class="pill">
+                <span class="material-symbols-rounded">shopping_cart</span>
+                @Model.Count producto(s) en el carrito
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th style="width:140px;">Precio</th>
+                        <th style="width:220px;">Cantidad</th>
+                        <th style="width:160px;">Subtotal</th>
+                        <th style="width:120px;"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var subtotal = item.Precio * item.Cantidad;
+                        <tr>
+                            <td>
+                                <div style="font-weight:800;">@item.Nombre</div>
+                                <div style="opacity:.75; font-size:.9rem;">ID Producto: @item.IdProducto</div>
+                            </td>
+
+                            <td>
+                                <b>₡@String.Format("{0:0.00}", item.Precio)</b>
+                            </td>
+
+                            <td>
+                                @* Ajuste de cantidad (POST a ActualizarCantidad) *@
+                                <form method="post" action="@Url.Action("ActualizarCantidad","Carrito")" class="d-flex gap-2 align-items-center">
+                                    <input type="hidden" name="idProducto" value="@item.IdProducto" />
+                                    <input type="number" name="cantidad" class="qty-input" min="0" value="@item.Cantidad" />
+                                    <button class="btn btn-primary btn-round" type="submit">
+                                        <span class="material-symbols-rounded">refresh</span>
+                                        Actualizar
+                                    </button>
+                                </form>
+
+                                <div style="opacity:.65; font-size:.85rem; margin-top:6px;">
+                                    * Cantidad 0 = quitar
+                                </div>
+                            </td>
+
+                            <td>
+                                <b>₡@String.Format("{0:0.00}", subtotal)</b>
+                            </td>
+
+                            <td class="text-end">
+                                <a class="btn btn-danger btn-round"
+                                   href="@Url.Action("EliminarDelCarrito","Carrito", new { idProducto = item.IdProducto })">
+                                    <span class="material-symbols-rounded">delete</span>
+                                    Quitar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="total-box">
+            <div>
+                <div style="opacity:.75;">Total a pagar</div>
+                <div class="total-amount">₡@String.Format("{0:0.00}", total)</div>
+            </div>
+
+            <div class="d-flex gap-2 flex-wrap">
+                <a class="btn btn-outline-danger btn-round" href="@Url.Action("VaciarCarrito","Carrito")">
+                    <span class="material-symbols-rounded">remove_shopping_cart</span>
+                    Vaciar
+                </a>
+
+                <a class="btn btn-success btn-round" href="@Url.Action("Checkout","Factura")">
+                    <span class="material-symbols-rounded">receipt_long</span>
+                    Finalizar compra
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

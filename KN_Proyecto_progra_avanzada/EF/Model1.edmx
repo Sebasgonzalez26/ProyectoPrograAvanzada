@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="BDProyecto_KNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbCarrito">
+          <Key>
+            <PropertyRef Name="IdCarrito" />
+          </Key>
+          <Property Name="IdCarrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdProducto" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tbCatalogo">
           <Key>
             <PropertyRef Name="IdProducto" />
@@ -125,6 +135,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbCarrito_tbCatalogo">
+          <End Role="tbCatalogo" Type="Self.tbCatalogo" Multiplicity="1" />
+          <End Role="tbCarrito" Type="Self.tbCarrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCatalogo">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="tbCarrito">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCarrito_tbUsuario">
+          <End Role="tbUsuario" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbCarrito" Type="Self.tbCarrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="tbCarrito">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbCatalogo_tbCategoria">
           <End Role="tbCategoria" Type="Self.tbCategoria" Multiplicity="1" />
           <End Role="tbCatalogo" Type="Self.tbCatalogo" Multiplicity="*" />
@@ -184,6 +218,7 @@
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="BDProyecto_KNModelStoreContainer">
+          <EntitySet Name="tbCarrito" EntityType="Self.tbCarrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbCatalogo" EntityType="Self.tbCatalogo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbCategoria" EntityType="Self.tbCategoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbCitas" EntityType="Self.tbCitas" Schema="dbo" store:Type="Tables" />
@@ -196,6 +231,14 @@
           <AssociationSet Name="FK_Mascota_Cliente" Association="Self.FK_Mascota_Cliente">
             <End Role="tbClientes" EntitySet="tbClientes" />
             <End Role="tbMascotas" EntitySet="tbMascotas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCarrito_tbCatalogo" Association="Self.FK_tbCarrito_tbCatalogo">
+            <End Role="tbCatalogo" EntitySet="tbCatalogo" />
+            <End Role="tbCarrito" EntitySet="tbCarrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCarrito_tbUsuario" Association="Self.FK_tbCarrito_tbUsuario">
+            <End Role="tbUsuario" EntitySet="tbUsuario" />
+            <End Role="tbCarrito" EntitySet="tbCarrito" />
           </AssociationSet>
           <AssociationSet Name="FK_tbCatalogo_tbCategoria" Association="Self.FK_tbCatalogo_tbCategoria">
             <End Role="tbCategoria" EntitySet="tbCategoria" />
@@ -238,6 +281,7 @@
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="IdPerfil" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tbPerfil" Relationship="Self.FK_tbUsuario_tbPerfil" FromRole="tbUsuario" ToRole="tbPerfil" />
+          <NavigationProperty Name="tbCarrito" Relationship="BDProyecto_KNModel.FK_tbCarrito_tbUsuario" FromRole="tbUsuario" ToRole="tbCarrito" />
         </EntityType>
         <Association Name="FK_tbUsuario_tbPerfil">
           <End Role="tbPerfil" Type="Self.tbPerfil" Multiplicity="1" />
@@ -291,7 +335,16 @@
             <End Role="tbVeterinarios" EntitySet="tbVeterinarios" />
             <End Role="tbCitas" EntitySet="tbCitas" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="tbCarrito" EntityType="BDProyecto_KNModel.tbCarrito" />
+          <AssociationSet Name="FK_tbCarrito_tbCatalogo" Association="BDProyecto_KNModel.FK_tbCarrito_tbCatalogo">
+            <End Role="tbCatalogo" EntitySet="tbCatalogo" />
+            <End Role="tbCarrito" EntitySet="tbCarrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCarrito_tbUsuario" Association="BDProyecto_KNModel.FK_tbCarrito_tbUsuario">
+            <End Role="tbUsuario" EntitySet="tbUsuario" />
+            <End Role="tbCarrito" EntitySet="tbCarrito" />
+          </AssociationSet>
+          </EntityContainer>
         <ComplexType Name="ValidarUsuarios_Result">
           <Property Type="Int32" Name="IdUsuario" Nullable="false" />
           <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="15" />
@@ -315,7 +368,8 @@
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="IdCategoria" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tbCategoria" Relationship="BDProyecto_KNModel.FK_tbCatalogo_tbCategoria" FromRole="tbCatalogo" ToRole="tbCategoria" />
-        </EntityType>
+          <NavigationProperty Name="tbCarrito" Relationship="BDProyecto_KNModel.FK_tbCarrito_tbCatalogo" FromRole="tbCatalogo" ToRole="tbCarrito" />
+          </EntityType>
         <EntityType Name="tbCategoria">
           <Key>
             <PropertyRef Name="IdCategoria" />
@@ -446,7 +500,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="tbCarrito">
+          <Key>
+            <PropertyRef Name="IdCarrito" />
+          </Key>
+          <Property Name="IdCarrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="IdProducto" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbCatalogo" Relationship="BDProyecto_KNModel.FK_tbCarrito_tbCatalogo" FromRole="tbCarrito" ToRole="tbCatalogo" />
+          <NavigationProperty Name="tbUsuario" Relationship="BDProyecto_KNModel.FK_tbCarrito_tbUsuario" FromRole="tbCarrito" ToRole="tbUsuario" />
+        </EntityType>
+        <Association Name="FK_tbCarrito_tbCatalogo">
+          <End Type="BDProyecto_KNModel.tbCatalogo" Role="tbCatalogo" Multiplicity="1" />
+          <End Type="BDProyecto_KNModel.tbCarrito" Role="tbCarrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCatalogo">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="tbCarrito">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCarrito_tbUsuario">
+          <End Type="BDProyecto_KNModel.tbUsuario" Role="tbUsuario" Multiplicity="1" />
+          <End Type="BDProyecto_KNModel.tbCarrito" Role="tbCarrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="tbCarrito">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -580,6 +670,17 @@
                 <ScalarProperty Name="IdVeterinario" ColumnName="IdVeterinario" />
                 <ScalarProperty Name="IdMascota" ColumnName="IdMascota" />
                 <ScalarProperty Name="IdCita" ColumnName="IdCita" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbCarrito">
+            <EntityTypeMapping TypeName="BDProyecto_KNModel.tbCarrito">
+              <MappingFragment StoreEntitySet="tbCarrito">
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdCarrito" ColumnName="IdCarrito" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

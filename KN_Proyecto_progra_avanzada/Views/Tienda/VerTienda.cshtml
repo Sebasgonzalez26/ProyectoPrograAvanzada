@@ -1,0 +1,232 @@
+﻿@model List<KN_Proyecto_progra_avanzada.Models.Catalogo>
+
+@{
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+<style>
+    .shop-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .shop-title {
+        font-weight: 700;
+        font-size: 1.8rem;
+        margin: 0;
+    }
+
+    .shop-subtitle {
+        margin: 0;
+        opacity: .75;
+        font-size: .95rem;
+    }
+
+    .shop-filters {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .product-card {
+        border: 0;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0,0,0,.07);
+        transition: transform .18s ease, box-shadow .18s ease;
+        height: 100%;
+        background: #fff;
+    }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 35px rgba(0,0,0,.12);
+        }
+
+    .product-img-wrap {
+        position: relative;
+        height: 180px;
+        background: linear-gradient(135deg, rgba(36,132,255,.08), rgba(15,201,156,.08));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .product-img {
+        height: 180px;
+        width: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .badge-stock {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: .8rem;
+        background: rgba(0,0,0,.75);
+        color: white;
+        backdrop-filter: blur(6px);
+    }
+
+    .badge-category {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: .8rem;
+        background: rgba(255,255,255,.92);
+        color: #111;
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(0,0,0,.06);
+    }
+
+    .product-body {
+        padding: 14px 14px 12px 14px;
+    }
+
+    .product-name {
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 1.05rem;
+        line-height: 1.2;
+        min-height: 2.4em;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .product-desc {
+        opacity: .8;
+        font-size: .92rem;
+        margin-bottom: 12px;
+        min-height: 3.8em;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .product-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(0,0,0,.06);
+    }
+
+    .price {
+        font-weight: 800;
+        font-size: 1.05rem;
+    }
+
+    .btn-add {
+        border-radius: 999px;
+        padding: 9px 12px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+    }
+
+    .empty-state {
+        padding: 30px;
+        border-radius: 16px;
+        background: rgba(0,0,0,.03);
+        text-align: center;
+    }
+</style>
+
+<div class="shop-header">
+    <div>
+        <h2 class="shop-title">Tienda</h2>
+        <p class="shop-subtitle">Productos disponibles para tu mascota 🐾</p>
+    </div>
+
+    <div class="shop-filters">
+        <form method="get" action="@Url.Action("VerTienda","Tienda")" class="d-flex gap-2 flex-wrap">
+            @Html.DropDownList(
+                "idCategoria",
+                ViewBag.Categorias as SelectList,
+                "Todas las categorías",
+                new { @class = "form-select", style = "min-width: 200px;" }
+            )
+
+            <input type="text" name="q" class="form-control" placeholder="Buscar..." style="min-width: 220px;" />
+            <button class="btn btn-primary" type="submit">Buscar</button>
+            <a class="btn btn-outline-secondary" href="@Url.Action("VerTienda","Tienda")">Limpiar</a>
+        </form>
+
+        <a class="btn btn-success" style="border-radius:999px;" href="@Url.Action("Index","Carrito")">
+            Ver carrito
+        </a>
+    </div>
+</div>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="empty-state">
+        <h5 style="margin-bottom: 6px;">No hay productos disponibles</h5>
+        <p style="margin:0; opacity:.75;">Probá con otra búsqueda o volvé más tarde.</p>
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var p in Model)
+        {
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        @* Imagen del producto *@
+                        <img class="product-img" src="@(!string.IsNullOrWhiteSpace(p.Imagen) ? p.Imagen : "/imgCatalogos/no-image.png")" alt="@p.Nombre" />
+
+                        <span class="badge-stock">Stock: @p.Stock</span>
+                        @* Si querés, aquí podrías mostrar categoría si la agregás al modelo para tienda *@
+                        <span class="badge-category">₡@String.Format("{0:0.00}", p.Precio)</span>
+                    </div>
+
+                    <div class="product-body">
+                        <div class="product-name">@p.Nombre</div>
+                        <div class="product-desc">@p.Descripcion</div>
+
+                        <div class="product-footer">
+                            <div class="price">₡@String.Format("{0:0.00}", p.Precio)</div>
+
+                            @* Botón Agregar al carrito *@
+                            @using (Html.BeginForm("AgregarAlCarrito", "Carrito", FormMethod.Post, new { style = "display:inline;", @id = "FormAgregarCarrito" }))
+                            {
+                                @Html.Hidden("id", p.IdProducto)
+
+                                <button type="submit" class="btn btn-success btn-add">
+                                    <span class="material-symbols-rounded" style="font-size:20px; line-height:0;">
+                                        add_shopping_cart
+                                    </span>
+                                    Agregar
+                                </button>
+                            }
+                        </div>
+
+                        @* Link opcional a detalle *@
+                        <div class="mt-2">
+                            <a href="@Url.Action("Detalle","Tienda", new { id = p.IdProducto })" class="text-decoration-none" style="font-weight:600;">
+                                Ver detalle →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

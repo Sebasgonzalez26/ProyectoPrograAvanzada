@@ -14,6 +14,12 @@ namespace KN_Proyecto_progra_avanzada.EF
     
     public partial class tbCatalogo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbCatalogo()
+        {
+            this.tbCarrito = new HashSet<tbCarrito>();
+        }
+    
         public int IdProducto { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
@@ -25,5 +31,7 @@ namespace KN_Proyecto_progra_avanzada.EF
         public int IdCategoria { get; set; }
     
         public virtual tbCategoria tbCategoria { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbCarrito> tbCarrito { get; set; }
     }
 }
