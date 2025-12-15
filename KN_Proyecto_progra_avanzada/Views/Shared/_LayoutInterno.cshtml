@@ -67,12 +67,7 @@
             <ul class="navbar-nav">
 
                 @* =========================
-            ADMIN (IdPerfil == "1")
-            Ve TODO menos:
-            - Gestión de Mascotas
-            - Registrar cita
-            - Tienda
-            - Carrito
+            ADMIN – VE TODO
             ========================= *@
                 @if (idPerfil == "1")
                 {
@@ -82,19 +77,37 @@
                         </h6>
                     </li>
 
-                    @* ❌ NO: Gestión de Mascotas *@
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="@Url.Action("VerMascotas", "Mascota")">
+                            <i class="material-symbols-rounded">pets</i>
+                            <span class="nav-link-text ms-1">Gestión de Mascotas</span>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="@Url.Action("VerClientes","Cliente")">
-                            <i class="material-symbols-rounded opacity-5">group</i>
+                            <i class="material-symbols-rounded">group</i>
                             <span class="nav-link-text ms-1">Gestión de Clientes</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="@Url.Action("VerVeterinarios", "Veterinario")">
-                            <i class="material-symbols-rounded opacity-5">stethoscope</i>
+                            <i class="material-symbols-rounded">stethoscope</i>
                             <span class="nav-link-text ms-1">Gestión de Veterinarios</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item mt-3">
+                        <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
+                            Citas
+                        </h6>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="@Url.Action("VerCitas", "Cita")">
+                            <i class="material-symbols-rounded">calendar_month</i>
+                            <span class="nav-link-text ms-1">Registrar / Ver citas</span>
                         </a>
                     </li>
 
@@ -106,7 +119,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="@Url.Action("VerInventario", "Inventario")">
-                            <i class="material-symbols-rounded opacity-5">inventory_2</i>
+                            <i class="material-symbols-rounded">inventory_2</i>
                             <span class="nav-link-text ms-1">Gestión de productos</span>
                         </a>
                     </li>
@@ -119,75 +132,74 @@
 
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="@Url.Action("VerCatalogo", "Catalogo")">
-                            <i class="material-symbols-rounded opacity-5">inventory_2</i>
-                            <span class="nav-link-text ms-1">Inventario de Tienda</span>
+                            <i class="material-symbols-rounded">inventory</i>
+                            <span class="nav-link-text ms-1">Inventario de tienda</span>
                         </a>
-                    </li>
-
-                    @* ❌ NO: Tienda *@
-                    @* ❌ NO: Carrito *@
-
-                    @* ❌ NO: Registrar cita *@
-                }
-                else
-                {
-                    @* =========================
-                USUARIO REGULAR (IdPerfil != "1")
-                Ve:
-                - Gestión de Mascotas
-                - Registrar cita
-                - Tienda
-                - Carrito
-                ========================= *@
-
-                    <li class="nav-item mt-3">
-                        <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
-                            Gestiones
-                        </h6>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="@Url.Action("VerMascotas", "Mascota")">
-                            <i class="material-symbols-rounded align-middle">pets</i>
-                            <span class="nav-link-text ms-1">Gestión de Mascotas</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item mt-3">
-                        <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
-                            Calendario y control de citas
-                        </h6>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="@Url.Action("VerCitas", "Cita")">
-                            <i class="material-symbols-rounded opacity-5">calendar_month</i>
-                            <span class="nav-link-text ms-1">Registrar cita</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item mt-3">
-                        <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
-                            Tienda en línea
-                        </h6>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="@Url.Action("VerTienda", "Tienda")">
-                            <i class="material-symbols-rounded opacity-5">storefront</i>
+                            <i class="material-symbols-rounded">storefront</i>
                             <span class="nav-link-text ms-1">Tienda</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="@Url.Action("VerCarrito", "Carrito")">
-                            <i class="material-symbols-rounded opacity-5">shopping_cart</i>
+                            <i class="material-symbols-rounded">shopping_cart</i>
+                            <span class="nav-link-text ms-1">Carrito</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    @* =========================
+                USUARIO REGULAR
+                ========================= *@
+
+                    <li class="nav-item mt-3">
+                        <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
+                            Mi cuenta
+                        </h6>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="@Url.Action("VerMascotas", "Mascota")">
+                            <i class="material-symbols-rounded">pets</i>
+                            <span class="nav-link-text ms-1">Mascotas</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="@Url.Action("VerCitas", "Cita")">
+                            <i class="material-symbols-rounded">calendar_month</i>
+                            <span class="nav-link-text ms-1">Mis Citas</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item mt-3">
+                        <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
+                            Tienda
+                        </h6>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="@Url.Action("VerTienda", "Tienda")">
+                            <i class="material-symbols-rounded">storefront</i>
+                            <span class="nav-link-text ms-1">Tienda</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="@Url.Action("VerCarrito", "Carrito")">
+                            <i class="material-symbols-rounded">shopping_cart</i>
                             <span class="nav-link-text ms-1">Mi Carrito</span>
                         </a>
                     </li>
                 }
 
             </ul>
+
 
         </div>
     </aside>
