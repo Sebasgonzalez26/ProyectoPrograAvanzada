@@ -4,33 +4,11 @@
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
 }
 
-<!-- SOLO DISEÑO PARA ESTE FORM -->
-<style>
-    .catalogo-form .form-label {
-        font-weight: 600;
-        margin-bottom: 0.25rem;
-        color: #444;
-    }
+@section Styles {
+    <link href="~/Static/css/catalogo.css" rel="stylesheet" />
 
-    .catalogo-form .form-control,
-    .catalogo-form .form-select {
-        border: 1px solid #d0d0d0 !important;
-        border-radius: 0.5rem;
-        padding: 0.5rem 0.75rem;
-        background-color: #ffffff;
-        box-shadow: none !important;
-        min-height: 42px;
-    }
+}
 
-    .catalogo-form textarea.form-control {
-        min-height: 100px;
-        resize: vertical;
-    }
-
-    .catalogo-form small.form-text {
-        font-size: 0.8rem;
-    }
-</style>
 
 <div class="container-fluid py-4">
 
@@ -72,10 +50,10 @@
                             <!-- Precio -->
                             <div class="col-md-6 mb-3">
                                 <label for="Precio" class="form-label">Precio</label>
-                                                                    @Html.TextBoxFor(
-                                        x => x.Precio,
-                                        new { @class = "form-control" }   
-                                    )
+                                @Html.TextBoxFor(
+    x => x.Precio,
+    new { @class = "form-control" }
+)
 
                             </div>
 

@@ -1,0 +1,89 @@
+﻿.cart-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.cart-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.cart-title {
+    font-weight: 800;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.cart-subtitle {
+    margin: 0;
+    opacity: .75;
+}
+
+.card-soft {
+    border: 0;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.07);
+    overflow: hidden;
+    background: #fff;
+}
+
+.table thead th {
+    border-bottom: 1px solid rgba(0,0,0,.08) !important;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(0,0,0,.04);
+    font-weight: 700;
+}
+
+.qty-input {
+    width: 90px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,.12);
+    padding: 8px 10px;
+}
+
+.btn-round {
+    border-radius: 999px;
+    font-weight: 700;
+    padding: 9px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.total-box {
+    border-top: 1px solid rgba(0,0,0,.08);
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.total-amount {
+    font-size: 1.25rem;
+    font-weight: 900;
+}
+
+.empty-state {
+    padding: 30px;
+    border-radius: 16px;
+    background: rgba(0,0,0,.03);
+    text-align: center;
+}

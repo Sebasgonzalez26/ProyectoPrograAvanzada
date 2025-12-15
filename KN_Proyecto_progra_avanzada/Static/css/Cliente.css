@@ -1,0 +1,56 @@
+﻿.cliente-form .form-label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #444;
+}
+
+.cliente-form .form-control,
+.cliente-form .form-select {
+    border: 1px solid #d0d0d0 !important;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: #ffffff;
+    box-shadow: none !important;
+    min-height: 42px;
+}
+
+.cliente-form textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.cliente-form small.form-text {
+    font-size: 0.8rem;
+}
+
+
+
+
+
+
+
+
+
+.cliente-form .form-label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #444;
+}
+
+.cliente-form .form-control {
+    border: 1px solid #d0d0d0 !important;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: #ffffff;
+    box-shadow: none !important;
+    min-height: 42px;
+}
+
+.cliente-form textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.cliente-form small.form-text {
+    font-size: 0.8rem;
+}

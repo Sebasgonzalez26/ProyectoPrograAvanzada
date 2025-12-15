@@ -4,33 +4,9 @@
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
 }
 
-<!-- SOLO DISEÑO PARA ESTE FORM -->
-<style>
-    .cliente-form .form-label {
-        font-weight: 600;
-        margin-bottom: 0.25rem;
-        color: #444;
-    }
-
-    .cliente-form .form-control,
-    .cliente-form .form-select {
-        border: 1px solid #d0d0d0 !important;
-        border-radius: 0.5rem;
-        padding: 0.5rem 0.75rem;
-        background-color: #ffffff;
-        box-shadow: none !important;
-        min-height: 42px;
-    }
-
-    .cliente-form textarea.form-control {
-        min-height: 100px;
-        resize: vertical;
-    }
-
-    .cliente-form small.form-text {
-        font-size: 0.8rem;
-    }
-</style>
+@section Styles {
+    <link href="~/Static/css/Cliente.css" rel="stylesheet" />
+}
 
 <div class="container-fluid py-4">
 
@@ -88,8 +64,8 @@
                             @Html.ValidationMessageFor(x => x.Telefono, "", new { @class = "text-danger" })
                         </div>
 
-                      
-                        
+
+
 
                         <div class="text-center">
                             <button type="submit" class="btn bg-gradient-success w-100 mb-0">

@@ -108,3 +108,60 @@
         max-height: 100%;
         border-radius: 10px;
     }
+
+
+/* CSS DE ACTUALIZAR CATALOGO */
+
+
+.catalogo-form .form-label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #444;
+}
+
+.catalogo-form .form-control,
+.catalogo-form .form-select {
+    border: 1px solid #d0d0d0 !important;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: #ffffff;
+    box-shadow: none !important;
+    min-height: 42px;
+}
+
+.catalogo-form textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.catalogo-form small.form-text {
+    font-size: 0.8rem;
+}
+
+
+
+
+.catalogo-form .form-label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #444;
+}
+
+.catalogo-form .form-control,
+.catalogo-form .form-select {
+    border: 1px solid #d0d0d0 !important;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: #ffffff;
+    box-shadow: none !important;
+    min-height: 42px;
+}
+
+.catalogo-form textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.catalogo-form small.form-text {
+    font-size: 0.8rem;
+}

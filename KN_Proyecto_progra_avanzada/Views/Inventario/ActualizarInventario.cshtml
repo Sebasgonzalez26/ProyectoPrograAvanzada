@@ -5,35 +5,14 @@
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
 }
 
-<style>
-    .inventario-form .form-label {
-        font-weight: 600;
-        margin-bottom: 0.25rem;
-        color: #444;
-    }
 
-    .inventario-form .form-control,
-    .inventario-form .form-select {
-        border: 1px solid #d0d0d0 !important;
-        border-radius: 0.5rem;
-        padding: 0.55rem 0.75rem;
-        min-height: 42px;
-        background-color: #fff;
-    }
 
-    .inventario-form textarea.form-control {
-        min-height: 90px;
-        resize: vertical;
-    }
+@section Styles {
+    <link href="~/Static/css/Inventario.css" rel="stylesheet" />
+}
 
-    .preview-img {
-        max-width: 120px;
-        max-height: 120px;
-        border-radius: 0.4rem;
-        border: 1px solid #ddd;
-        object-fit: cover;
-    }
-</style>
+
+
 
 <div class="container-fluid py-4">
 

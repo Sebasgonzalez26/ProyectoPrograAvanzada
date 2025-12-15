@@ -1,0 +1,72 @@
+﻿.inventario-form .form-label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #444;
+}
+
+.inventario-form .form-control,
+.inventario-form .form-select {
+    border: 1px solid #d0d0d0 !important;
+    border-radius: 0.5rem;
+    padding: 0.55rem 0.75rem;
+    min-height: 42px;
+    background-color: #fff;
+}
+
+.inventario-form textarea.form-control {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.preview-img {
+    max-width: 120px;
+    max-height: 120px;
+    border-radius: 0.4rem;
+    border: 1px solid #ddd;
+    object-fit: cover;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.inventario-form .form-label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #444;
+}
+
+.inventario-form .form-control,
+.inventario-form .form-select {
+    border: 1px solid #d0d0d0 !important;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: #ffffff;
+    box-shadow: none !important;
+    min-height: 42px;
+}
+
+.inventario-form textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.inventario-form small.form-text {
+    font-size: 0.8rem;
+}

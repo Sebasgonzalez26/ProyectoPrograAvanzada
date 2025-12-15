@@ -215,13 +215,20 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Static\css\Carrito.css" />
     <Content Include="Static\css\catalogo.css" />
+    <Content Include="Static\css\Cita.css" />
+    <Content Include="Static\css\Cliente.css" />
     <Content Include="Static\css\IniciarSesion.css" />
+    <Content Include="Static\css\Inventario.css" />
+    <Content Include="Static\css\Mascota.css" />
     <Content Include="Static\css\material-dashboard.css" />
     <Content Include="Static\css\nucleo-icons.css" />
     <Content Include="Static\css\nucleo-svg.css" />
     <Content Include="Static\css\Principal.css" />
     <Content Include="Static\css\Registro.css" />
+    <Content Include="Static\css\Tienda.css" />
+    <Content Include="Static\css\Veterinario.css" />
     <Content Include="Static\icons\apple-icon.png" />
     <Content Include="Static\icons\favicon.png" />
     <Content Include="Static\icons\illustration-signup.jpg" />
