@@ -221,6 +221,7 @@
     <Content Include="Static\css\Cliente.css" />
     <Content Include="Static\css\IniciarSesion.css" />
     <Content Include="Static\css\Inventario.css" />
+    <Content Include="Static\css\LayoutInterno.css" />
     <Content Include="Static\css\Mascota.css" />
     <Content Include="Static\css\material-dashboard.css" />
     <Content Include="Static\css\nucleo-icons.css" />
